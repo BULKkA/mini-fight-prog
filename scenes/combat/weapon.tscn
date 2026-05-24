@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://cxyw1er8ir0hs"]
+
+[ext_resource type="Texture2D" uid="uid://chc50mtfjh0tq" path="res://art/sprites/props/File.png" id="1_b0f4k"]
+[ext_resource type="Script" uid="uid://0my6te026lqb" path="res://scenes/combat/weapon.gd" id="1_v7bam"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v7bam"]
+atlas = ExtResource("1_b0f4k")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0f4k"]
+atlas = ExtResource("1_b0f4k")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ggoby"]
+atlas = ExtResource("1_b0f4k")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e870s"]
+atlas = ExtResource("1_b0f4k")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ggoby"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v7bam")
+}],
+"loop": true,
+"name": &"Fire_Sword",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b0f4k")
+}],
+"loop": true,
+"name": &"Fly_Sword",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ggoby")
+}],
+"loop": true,
+"name": &"Ise_Sword",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e870s")
+}],
+"loop": true,
+"name": &"Poison_Sword",
+"speed": 5.0
+}]
+
+[node name="Weapon" type="Node2D" unique_id=1382250928]
+script = ExtResource("1_v7bam")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1976734952]
+position = Vector2(0, -24)
+rotation = 0.7853982
+sprite_frames = SubResource("SpriteFrames_ggoby")
+animation = &"Poison_Sword"
+autoplay = "Fire_Sword"
+
+[node name="AttackBox" type="Area2D" parent="." unique_id=252939012]
+collision_layer = 0
+collision_mask = 2
+
+[node name="Fire_Sword" type="CollisionPolygon2D" parent="AttackBox" unique_id=773530264]
+visible = false
+polygon = PackedVector2Array(-8, -13, -3, -37, 3, -45, 5, -39, 11, -25, 5, -15, 4, -5, -2, -3)
+disabled = true
+
+[node name="Fly_Sword" type="CollisionPolygon2D" parent="AttackBox" unique_id=1383432707]
+visible = false
+polygon = PackedVector2Array(-1, -9, -9, -17, -7, -30, -3, -45, 3, -45, 7, -30, 9, -16, 0, -9)
+disabled = true
+
+[node name="Ise_Sword" type="CollisionPolygon2D" parent="AttackBox" unique_id=1922925574]
+visible = false
+polygon = PackedVector2Array(0, -8, -6, -14, -3, -46, 3, -46, 6, -13, 0, -8, 0, -8)
+disabled = true
+
+[node name="Poison_Sword" type="CollisionPolygon2D" parent="AttackBox" unique_id=247755134]
+visible = false
+polygon = PackedVector2Array(-1, -12, -5, -13, -9, -37, -3, -44, 3, -44, 9, -36, 6, -15)
+disabled = true
+
+[connection signal="area_entered" from="AttackBox" to="." method="_on_attack_box_area_entered"]

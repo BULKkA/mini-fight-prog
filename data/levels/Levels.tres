@@ -1,0 +1,54 @@
+[gd_resource type="JSON" format=3 uid="uid://cfd4v2644vn2d"]
+
+[resource]
+data = [{
+"id": 1,
+"level_data": "res://data/levels/level_01_data.tres",
+"link": "res://data/levels/level_01.tscn",
+"name": "Уровень 1"
+}, {
+"id": 2,
+"level_data": "res://data/levels/level_02_data.tres",
+"link": "res://data/levels/level_02.tscn",
+"name": "Уровень 2"
+}, {
+"id": 3,
+"level_data": "res://data/levels/level_03_data.tres",
+"link": "res://data/levels/level_03.tscn",
+"name": "Уровень 3"
+}, {
+"id": 4,
+"level_data": "res://data/levels/level_04_data.tres",
+"link": "res://data/levels/level_04.tscn",
+"name": "Уровень 4"
+}, {
+"id": 5,
+"level_data": "res://data/levels/level_05_data.tres",
+"link": "res://data/levels/level_05.tscn",
+"name": "Уровень 5"
+}, {
+"id": 6,
+"level_data": "res://data/levels/level_06_data.tres",
+"link": "res://data/levels/level_06.tscn",
+"name": "Уровень 6"
+}, {
+"id": 7,
+"level_data": "res://data/levels/level_07_data.tres",
+"link": "res://data/levels/level_07.tscn",
+"name": "Уровень 7"
+}, {
+"id": 8,
+"level_data": "res://data/levels/level_08_data.tres",
+"link": "res://data/levels/level_08.tscn",
+"name": "Уровень 8"
+}, {
+"id": 9,
+"level_data": "res://data/levels/level_09_data.tres",
+"link": "res://data/levels/level_09.tscn",
+"name": "Уровень 9"
+}, {
+"id": 10,
+"level_data": "res://data/levels/level_10_data.tres",
+"link": "res://data/levels/level_10.tscn",
+"name": "Уровень 10"
+}]

@@ -1,0 +1,25 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://doomci3dvw2yx"]
+
+[ext_resource type="Texture2D" uid="uid://chut13bmrlr0y" path="res://art/ui/bubble emotes july update.png" id="1_an60o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ywpfx"]
+atlas = ExtResource("1_an60o")
+region = Rect2(16, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8psg"]
+atlas = ExtResource("1_an60o")
+region = Rect2(32, 112, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ywpfx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k8psg")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 2.5
+}]

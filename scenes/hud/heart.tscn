@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cl1wbv2m2y43i"]
+
+[ext_resource type="SpriteFrames" uid="uid://doomci3dvw2yx" path="res://art/ui/Heartstres.tres" id="1_b5hyw"]
+
+[node name="Heart" type="Control" unique_id=1495414087]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=675423599]
+sprite_frames = ExtResource("1_b5hyw")
+animation = &"Idle"

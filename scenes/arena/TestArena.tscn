@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bpettqjgi7etb"]
+
+[ext_resource type="PackedScene" uid="uid://d10n5ao86bk14" path="res://scenes/combat/Player.tscn" id="1_dchdd"]
+[ext_resource type="PackedScene" uid="uid://16l5nwflr8m7" path="res://scenes/combat/BaseEnemy.tscn" id="2_5m0rm"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_5m0rm"]
+vertices = PackedVector2Array(582.03906, -41.09375, 583.9531, 386.53906, -73.25, 357.46094, -42.726563, -46.90625)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-52, -57, -84, 367, 594, 397, 592, -51)])
+
+[node name="TestArena" type="Node2D" unique_id=1792895479]
+
+[node name="Player" parent="." unique_id=1498142626 instance=ExtResource("1_dchdd")]
+position = Vector2(183, 124)
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1780784870]
+
+[node name="BaseEnemy" parent="." unique_id=1655154773 instance=ExtResource("2_5m0rm")]
+position = Vector2(324, 131)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=140465052]
+visible = false
+navigation_polygon = SubResource("NavigationPolygon_5m0rm")
+
+[node name="Spawner_1" type="Node2D" parent="." unique_id=1021484430]
+position = Vector2(228, 49)

@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://b80ssf3leasy8"]
+
+[node name="MainMenu" type="Control" unique_id=311912156]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=787828474]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ButtonList" type="VBoxContainer" parent="CenterContainer" unique_id=1419431345]
+layout_mode = 2
+
+[node name="Start" type="Button" parent="CenterContainer/ButtonList" unique_id=236770776]
+layout_mode = 2
+text = "Start"
+
+[node name="Options" type="Button" parent="CenterContainer/ButtonList" unique_id=1113661068]
+layout_mode = 2
+text = "Options"
+
+[node name="Quit" type="Button" parent="CenterContainer/ButtonList" unique_id=73589253]
+layout_mode = 2
+text = "Quit"
