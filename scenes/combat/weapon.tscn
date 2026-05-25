@@ -3,6 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://chc50mtfjh0tq" path="res://art/sprites/props/File.png" id="1_b0f4k"]
 [ext_resource type="Script" uid="uid://0my6te026lqb" path="res://scenes/combat/weapon.gd" id="1_v7bam"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_d68a1"]
+atlas = ExtResource("1_b0f4k")
+region = Rect2(160, 64, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_v7bam"]
 atlas = ExtResource("1_b0f4k")
 region = Rect2(0, 0, 32, 32)
@@ -21,6 +25,14 @@ region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ggoby"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d68a1")
+}],
+"loop": true,
+"name": &"Default_Sword",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_v7bam")
@@ -54,6 +66,10 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v7bam"]
+radius = 12.0
+height = 54.0
+
 [node name="Weapon" type="Node2D" unique_id=1382250928]
 script = ExtResource("1_v7bam")
 
@@ -61,8 +77,8 @@ script = ExtResource("1_v7bam")
 position = Vector2(0, -24)
 rotation = 0.7853982
 sprite_frames = SubResource("SpriteFrames_ggoby")
-animation = &"Poison_Sword"
-autoplay = "Fire_Sword"
+animation = &"Default_Sword"
+autoplay = "Default_Sword"
 
 [node name="AttackBox" type="Area2D" parent="." unique_id=252939012]
 collision_layer = 0
@@ -87,5 +103,18 @@ disabled = true
 visible = false
 polygon = PackedVector2Array(-1, -12, -5, -13, -9, -37, -3, -44, 3, -44, 9, -36, 6, -15)
 disabled = true
+
+[node name="Default_Sword" type="CollisionPolygon2D" parent="AttackBox" unique_id=499705625]
+visible = false
+polygon = PackedVector2Array(-2, -5, -4, -23, -3, -44, 0, -46, 4, -42, 5, -17, 2, -13, 2, -4)
+disabled = true
+
+[node name="CollectBox" type="Area2D" parent="." unique_id=1808694401]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectBox" unique_id=1482613156]
+position = Vector2(0, -23)
+shape = SubResource("CapsuleShape2D_v7bam")
 
 [connection signal="area_entered" from="AttackBox" to="." method="_on_attack_box_area_entered"]

@@ -13,7 +13,6 @@ var attacks = {}
 @export var max_health := 2 			# максимальное здоровье
 @export var heaviness: float = 1.0		# "тяжесть" врага: сильнее -> меньше отбрасывание
 @export var attack_range: float = 24.0		# дистанция базовой атаки
-@export var enemy_id: String = ""			# id врага для учёта убийств в БД
 
 @onready var visibility_area: Area2D = $VisibilityArea
 @onready var body_area: Area2D = $BodyArea
@@ -67,7 +66,7 @@ func _ready() -> void:
 	current_health = max_health
 
 	navigation_agent.path_desired_distance = 4.0
-	navigation_agent.target_desired_distance = attack_range * 0.6
+	navigation_agent.target_desired_distance = attack_range
 	navigation_agent.avoidance_enabled = false
 
 func _physics_process(delta: float) -> void:

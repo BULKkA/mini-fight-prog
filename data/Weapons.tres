@@ -1,0 +1,30 @@
+[gd_resource type="JSON" format=3 uid="uid://dl6fba6ur88lv"]
+
+[resource]
+data = {
+"Default_Sword": {
+"damage": 1,
+"effect": "NONE",
+"strength": 70
+},
+"Fire_Sword": {
+"damage": 2,
+"effect": "FIRE",
+"strength": 60
+},
+"Fly_Sword": {
+"damage": 1,
+"effect": "NONE",
+"strength": 200
+},
+"Ise_Sword": {
+"damage": 3,
+"effect": "ISE",
+"strength": 50
+},
+"Poison_Sword": {
+"damage": 2,
+"effect": "POISON",
+"strength": 30
+}
+}

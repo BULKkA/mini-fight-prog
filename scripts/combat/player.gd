@@ -1,8 +1,6 @@
 extends CharacterBody2D
 
-
 const MIN_MOVE_SPEED_SQ := 0.0001
-
 const KNOCKBACK_FORCE := 360.0			# базовая сила отбрасывания от каждой атаки
 const KNOCKBACK_DECAY := 900.0			# насколько быстро гаснет скорость отбрасывания
 
@@ -15,6 +13,9 @@ const KNOCKBACK_DECAY := 900.0			# насколько быстро гаснет 
 @export var DASH_COOLDOWN := 2
 
 var knockback_velocity: Vector2 = Vector2.ZERO
+
+var weapons = []
+var currentWeapon
 
 enum Direction{
 	UP,
@@ -169,3 +170,10 @@ func die() -> void:
 	is_dead = true
 	_set_animation(PlayerAnim, "Die_" + Direction.keys()[idle_dir])
 	await PlayerAnim.animation_finished
+
+func add_weapon(weapon):
+	if weapons.size() == 0:
+		currentWeapon = weapon
+	weapons.append(weapon)
+	weapon.owner = self
+	

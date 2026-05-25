@@ -294,6 +294,7 @@ radius = 6.0
 height = 16.0
 
 [node name="BaseEnemy" type="CharacterBody2D" unique_id=1655154773]
+y_sort_enabled = true
 collision_layer = 4
 script = ExtResource("1_wkbog")
 

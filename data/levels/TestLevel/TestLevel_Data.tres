@@ -1,19 +1,19 @@
-[gd_resource type="JSON" format=3 uid="uid://cfd4v2633vn2d"]
+[gd_resource type="JSON" format=3 uid="uid://3sasc2n28o6x"]
 
 [resource]
 data = {
-"player_spawn_position": [0, 0],
-"waves_count": 1,
+"player_spawn_position": [200, 200],
 "test_level": true,
 "waves": [{
-    "wave_number": 1,
-    "enemies": [{
-        "type": "TestEnemy",
-        "spawn_delay": 0
-    }],
-    "weapons": [{
-        "type": "TestWeapon",
-        "spawn_delay": 0
-    }]
+"enemies": [{
+"spawn_delay": 0,
+"type": "Orc"
+}],
+"wave_number": 1,
+"weapons": [{
+"spawn_delay": 0,
+"type": "Default_Sword"
+}]
+}],
+"waves_count": 1
 }
-
