@@ -1,0 +1,19 @@
+[gd_resource type="JSON" format=3 uid="uid://cfd4v2633vn2d"]
+
+[resource]
+data = {
+"player_spawn_position": [0, 0],
+"waves_count": 1,
+"test_level": true,
+"waves": [{
+    "wave_number": 1,
+    "enemies": [{
+        "type": "TestEnemy",
+        "spawn_delay": 0
+    }],
+    "weapons": [{
+        "type": "TestWeapon",
+        "spawn_delay": 0
+    }]
+}
+

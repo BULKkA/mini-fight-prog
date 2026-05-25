@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://b80ssf3leasy8"]
 
+[ext_resource type="Script" uid="uid://d2hj8w46yc4le" path="res://scripts/ui/main_menu.gd" id="1_qi05h"]
+
 [node name="MainMenu" type="Control" unique_id=311912156]
 layout_mode = 3
 anchors_preset = 15
@@ -9,6 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_qi05h")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=787828474]
 layout_mode = 1
@@ -32,3 +35,6 @@ text = "Options"
 [node name="Quit" type="Button" parent="CenterContainer/ButtonList" unique_id=73589253]
 layout_mode = 2
 text = "Quit"
+
+[connection signal="pressed" from="CenterContainer/ButtonList/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="CenterContainer/ButtonList/Quit" to="." method="_on_quit_pressed"]

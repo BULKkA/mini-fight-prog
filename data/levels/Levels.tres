@@ -2,6 +2,11 @@
 
 [resource]
 data = [{
+"id": 0,
+"level_data": "res://data/levels/TestArena.tres",
+"link": "res://scenes/arena/TestArena.tscn",
+"name": "Тестовая арена"
+}, {
 "id": 1,
 "level_data": "res://data/levels/level_01_data.tres",
 "link": "res://data/levels/level_01.tscn",

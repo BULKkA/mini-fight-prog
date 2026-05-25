@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://ds54l22pf1btb"]
 
+[ext_resource type="Script" uid="uid://lefwswb8m7l4" path="res://scripts/global/LevelManager.gd" id="1_ivy7o"]
+
 [node name="LevelSelect" type="Control" unique_id=208545170]
 layout_mode = 3
 anchors_preset = 15
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ivy7o")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=386823580]
 layout_mode = 1
@@ -20,6 +23,8 @@ grow_vertical = 2
 layout_mode = 2
 columns = 3
 
-[node name="Test_Level" type="Button" parent="CenterContainer/LevelsGrid" unique_id=484889549]
-layout_mode = 2
-text = "Test_Level"
+[node name="Back" type="Button" parent="." unique_id=1315115167]
+layout_mode = 1
+offset_right = 45.0
+offset_bottom = 31.0
+text = "Back"
