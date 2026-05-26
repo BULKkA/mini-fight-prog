@@ -34,7 +34,7 @@ func attack(direction: Vector2) -> void:
 	rotation = direction.angle()
 	AnimSprite2D.play(current_weapon_type)
 
-	currentCollision.disable = false
+	currentCollision.Disable = false
 	AnimPlayer.play("Attack")
 	await AnimPlayer.animation_finished
 	currentCollision.disable = true
