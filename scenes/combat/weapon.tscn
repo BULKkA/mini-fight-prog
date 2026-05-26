@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cxyw1er8ir0hs"]
 
 [ext_resource type="Texture2D" uid="uid://chc50mtfjh0tq" path="res://art/sprites/props/File.png" id="1_b0f4k"]
-[ext_resource type="Script" uid="uid://0my6te026lqb" path="res://scenes/combat/weapon.gd" id="1_v7bam"]
+[ext_resource type="Script" uid="uid://0my6te026lqb" path="res://scripts/combat/weapon.gd" id="1_v7bam"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d68a1"]
 atlas = ExtResource("1_b0f4k")
@@ -70,17 +70,73 @@ animations = [{
 radius = 12.0
 height = 54.0
 
+[sub_resource type="Animation" id="Animation_v7bam"]
+resource_name = "Attack"
+length = 0.33333334
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("AttackBox/AnimatedSprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 0, 0),
+"points": PackedFloat32Array(-0.43633232, -0.25, 0, 0.25, 0, 0.7853982, -0.083333336, -0.20362175, 0, 0, 2.1816616, -0.083333336, -0.23271057, 0, 0),
+"times": PackedFloat32Array(0, 0.13333334, 0.33333337)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackBox:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 2, 0),
+"points": PackedFloat32Array(-1.1953762, 0, 0, 0.022055557, 0.19922936, 0, 0, 0, 0.033333335, 0.22177811, 1.3306686, -0.16666667, 0, 0.16666667, 0),
+"times": PackedFloat32Array(0.0009999999, 0.13333334, 0.33333334)
+}
+
+[sub_resource type="Animation" id="Animation_e870s"]
+resource_name = "IDLE"
+
+[sub_resource type="Animation" id="Animation_ggoby"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackBox/AnimatedSprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.7853982, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackBox:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1.3306686, -0.16666667, 0, 0.16666667, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ggoby"]
+_data = {
+&"Attack": SubResource("Animation_v7bam"),
+&"IDLE": SubResource("Animation_e870s"),
+&"RESET": SubResource("Animation_ggoby")
+}
+
 [node name="Weapon" type="Node2D" unique_id=1382250928]
+y_sort_enabled = true
 script = ExtResource("1_v7bam")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1976734952]
-position = Vector2(0, -24)
-rotation = 0.7853982
-sprite_frames = SubResource("SpriteFrames_ggoby")
-animation = &"Default_Sword"
-autoplay = "Default_Sword"
-
 [node name="AttackBox" type="Area2D" parent="." unique_id=252939012]
+rotation = 1.3306686
 collision_layer = 0
 collision_mask = 2
 
@@ -105,16 +161,28 @@ polygon = PackedVector2Array(-1, -12, -5, -13, -9, -37, -3, -44, 3, -44, 9, -36,
 disabled = true
 
 [node name="Default_Sword" type="CollisionPolygon2D" parent="AttackBox" unique_id=499705625]
-visible = false
 polygon = PackedVector2Array(-2, -5, -4, -23, -3, -44, 0, -46, 4, -42, 5, -17, 2, -13, 2, -4)
 disabled = true
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AttackBox" unique_id=1976734952]
+position = Vector2(0, -1)
+rotation = 0.7853982
+sprite_frames = SubResource("SpriteFrames_ggoby")
+animation = &"Default_Sword"
+offset = Vector2(-16, -16)
+
 [node name="CollectBox" type="Area2D" parent="." unique_id=1808694401]
+visible = false
 collision_layer = 8
 collision_mask = 0
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollectBox" unique_id=1482613156]
 position = Vector2(0, -23)
 shape = SubResource("CapsuleShape2D_v7bam")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1468028914]
+libraries/ = SubResource("AnimationLibrary_ggoby")
+autoplay = &"IDLE"
 
 [connection signal="area_entered" from="AttackBox" to="." method="_on_attack_box_area_entered"]

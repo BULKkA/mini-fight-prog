@@ -21,8 +21,8 @@ func OpenSceneWithData(Scene, Data):
 	get_tree().change_scene_to_packed(new_scene)
 
 func InitializeScene(scene, data):
-	SpawnManager.set_scene(scene.instantiate())
+	SpawnManager.setScene(scene.instantiate())
 	SpawnManager.SpawnPlayer(data.player_spawn_position)
-	SpawnManager.StartWawes()
+	SpawnManager.StartWaves(data.waves_count, data.waves)
 	
 	

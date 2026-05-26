@@ -12,7 +12,7 @@ data = {
 "wave_number": 1,
 "weapons": [{
 "spawn_delay": 0,
-"type": "Default_Sword"
+"type": "Fire_Sword"
 }]
 }],
 "waves_count": 1

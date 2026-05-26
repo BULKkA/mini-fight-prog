@@ -7,6 +7,7 @@ const KNOCKBACK_DECAY := 900.0			# насколько быстро гаснет 
 @onready var PlayerAnim: AnimatedSprite2D = $PlayerAnim
 @onready var AnimPlayer: AnimationPlayer = $AnimationPlayer
 @onready var HealthBar = $HealthBar 
+@onready var Inventory = $Inventory
 @export var heaviness: float = 3.0
 @export var SPEED := 100.0
 @export var DASH_SPEED := 200.0
@@ -76,6 +77,8 @@ func _physics_process(delta: float) -> void:
 		dash() 
 	move_and_slide()
 
+# хотьба 
+
 func dash() -> void:
 	is_dashing = true
 	_set_animation(PlayerAnim, "Dash_" + Direction.keys()[idle_dir])
@@ -86,16 +89,6 @@ func dash() -> void:
 	await get_tree().create_timer(DASH_COOLDOWN).timeout
 	dash_is_cooldown = false
 	
-func attack() -> void:
-	# Защита от повторного старта атаки во время кулдауна/анимации
-	if not is_attacking:
-		return
-	is_attacking = true
-	#Анимации атаки тута
-	AnimPlayer.play("Attack")
-	await PlayerAnim.animation_finished
-	is_attacking = false
-
 func _update_knockback(delta: float) -> void:
 	# Затухание отбрасывания
 	if knockback_velocity == Vector2.ZERO:
@@ -109,8 +102,6 @@ func _update_knockback(delta: float) -> void:
 		knockback_velocity = Vector2.ZERO
 
 func _update_animation() -> void:
-	if is_attacking:
-		return
 	if input_velocity.length_squared() <= MIN_MOVE_SPEED_SQ:
 		_set_animation(PlayerAnim, "Idle_" + Direction.keys()[idle_dir])
 	else:
@@ -139,8 +130,18 @@ func _set_idle_dir_from_direction(direction: Vector2) -> void:
 	elif direction.y > 0:
 		idle_dir = Direction.DOWN
 
+# Атака и взаимодействия
+
+func attack() -> void:
+	if is_attacking or currentWeapon == null:
+		return
+	is_attacking = true
+	var mouse_pos = get_global_mouse_position()
+	var direction = (mouse_pos - global_position).normalized()
+	await currentWeapon.attack(direction)
+	is_attacking = false
+
 func take_hit(amount: int, knockback: Dictionary = {}) -> void:
-	# Основной вход для получения урона
 	if is_dead or amount <= 0:
 		return
 		
@@ -152,11 +153,9 @@ func take_hit(amount: int, knockback: Dictionary = {}) -> void:
 		if dir != Vector2.ZERO and strength > 0.0:
 			knockback_velocity += dir.normalized() * (strength / safe_heaviness)
 
-	# Клампим и обновляем отображение здоровья (после каждого удара)
 	if current_health < 0:
 		current_health = 0
 
-	# Смерть при исчерпании HP
 	if current_health <= 0:
 		die()
 	
@@ -171,9 +170,23 @@ func die() -> void:
 	_set_animation(PlayerAnim, "Die_" + Direction.keys()[idle_dir])
 	await PlayerAnim.animation_finished
 
+func _on_interact_box_area_entered(area: Area2D) -> void:
+	var object = area.get_parent()
+	object.Interact(self)
+
 func add_weapon(weapon):
 	if weapons.size() == 0:
 		currentWeapon = weapon
 	weapons.append(weapon)
-	weapon.owner = self
-	
+	weapon.reparent(Inventory)
+	weapon.set_monitoring(false)
+	weapon.position = Vector2(0, 0)
+	weapon.visible = false
+
+func remove_weapon(weapon):
+	if weapon == currentWeapon:
+		if weapons.size() > 1:
+			currentWeapon = weapons[0] if weapons[0] != weapon else weapons[1]
+		else:
+			currentWeapon = null
+	weapons.erase(weapon)

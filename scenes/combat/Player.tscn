@@ -1505,6 +1505,10 @@ _data = {
 &"RESET": SubResource("Animation_yjwra")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ldesh"]
+radius = 13.0
+height = 36.0
+
 [node name="Player" type="CharacterBody2D" unique_id=1498142626]
 y_sort_enabled = true
 collision_layer = 2
@@ -1552,3 +1556,15 @@ heart_scene = ExtResource("4_q0lwg")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2132821885]
 libraries/ = SubResource("AnimationLibrary_ldesh")
+
+[node name="InteractBox" type="Area2D" parent="." unique_id=1041446050]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractBox" unique_id=766912301]
+position = Vector2(0, -11)
+shape = SubResource("CapsuleShape2D_ldesh")
+
+[node name="Inventory" type="Node2D" parent="." unique_id=872289531]
+
+[connection signal="area_entered" from="InteractBox" to="." method="_on_interact_box_area_entered"]
