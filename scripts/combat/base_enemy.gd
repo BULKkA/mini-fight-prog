@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name BaseEnemy
 
 enum State {
 	IDLE,		# стоит на месте
@@ -9,10 +10,10 @@ enum State {
 
 var attacks = {}
 
-@export var speed := 80.0				# базовая скорость передвижения
-@export var max_health := 2 			# максимальное здоровье
-@export var heaviness: float = 1.0		# "тяжесть" врага: сильнее -> меньше отбрасывание
-@export var attack_range: float = 24.0		# дистанция базовой атаки
+@export var speed := 80.0
+@export var max_health := 2
+@export var heaviness: float = 1.0
+@export var attack_range: float = 24.0
 
 @onready var visibility_area: Area2D = $VisibilityArea
 @onready var body_area: Area2D = $BodyArea
@@ -21,7 +22,7 @@ var attacks = {}
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var Attack_LightArea = $Attack_Light
 @onready var Attack_HightArea = $Attack_Hight
-@onready var HealthBar: HBoxContainer = $HealthBar
+@onready var HealthBar: TextureProgressBar = $HealthBar
 
 const MIN_MOVE_SPEED_SQ := 0.0001
 const KNOCKBACK_DECAY := 2000.0
@@ -125,11 +126,6 @@ func _set_facing_dir_from_direction(direction: Vector2) -> void:
 func _sync_attack_box_to_facing_dir(AttackType) -> void:
 	AttackType.area.scale.x = -1 if facing_dir == Vector2.LEFT else 1
 
-
-# ============================================================
-# Логика состояний
-# ============================================================
-
 func _idle(delta: float) -> void:
 	movement_velocity = Vector2.ZERO
 
@@ -177,10 +173,6 @@ func _return(delta: float) -> void:
 	else:
 		movement_velocity = Vector2.ZERO
 
-# ============================================================
-# Базовая атака
-# ============================================================
-
 func _perform_attack(AttackType) -> void:
 	
 	is_attacking = true
@@ -216,10 +208,6 @@ func _play_attack_animation(AttackType) -> void:
 		animated_sprite.flip_h = false
 		_set_animation(AttackType)
 
-# ============================================================
-# Управление состоянием
-# ============================================================
-
 func set_state(new_state: State) -> void:
 	if new_state == state:
 		return
@@ -233,10 +221,6 @@ func _on_state_enter(new_state: State) -> void:
 
 func _on_state_exit(old_state: State) -> void:
 	pass
-
-# ============================================================
-# Здоровье и урон
-# ============================================================
 
 func take_hit(amount: int, knockback: Dictionary = {}) -> void: 
 	if not is_alive:
@@ -271,10 +255,6 @@ func die() -> void:
 	clothCollisions()
 	
 
-# ============================================================
-# Обнаружение цели
-# ============================================================
-
 func _on_visibility_area_area_entered(area: Area2D) -> void:
 	target = area.get_parent() if area.get_parent() is Node2D else area
 	if state != State.ATTACK:
@@ -293,10 +273,6 @@ func _on_exit_area_area_exited(area: Area2D) -> void:
 	if area == target or area.get_parent() == target:
 		target = null
 		set_state(State.RETURN)
-
-# ============================================================
-# Hitbox атаки
-# ============================================================
 
 func _on_attack_light_area_entered(area: Area2D) -> void:
 	attackBody(area.get_parent())

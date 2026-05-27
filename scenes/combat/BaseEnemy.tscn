@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://dlpij004otj2o" path="res://art/animations/Orc.png" id="1_deysu"]
 [ext_resource type="Script" uid="uid://cyy0kjtyadivo" path="res://scripts/combat/base_enemy.gd" id="1_wkbog"]
 [ext_resource type="Script" uid="uid://cywrwj2s0jr1w" path="res://scripts/ui/health_bar.gd" id="3_ebcs4"]
-[ext_resource type="PackedScene" uid="uid://cl1wbv2m2y43i" path="res://scenes/hud/heart.tscn" id="4_ebcs4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wkbog"]
 atlas = ExtResource("1_deysu")
@@ -284,14 +283,17 @@ height = 10.0
 radius = 13.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ckr1l"]
-radius = 122.0041
+radius = 3215.3308
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ebcs4"]
-radius = 85.0
+radius = 1625.9305
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ebcs4"]
 radius = 6.0
 height = 16.0
+
+[sub_resource type="ExternalTexture" id="ExternalTexture_ckr1l"]
+size = Vector2(16, 1)
 
 [node name="BaseEnemy" type="CharacterBody2D" unique_id=1655154773]
 y_sort_enabled = true
@@ -345,6 +347,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitArea" unique_id=1511557732]
+position = Vector2(-4, -4)
 shape = SubResource("CircleShape2D_ckr1l")
 
 [node name="VisibilityArea" type="Area2D" parent="." unique_id=1121787694]
@@ -356,26 +359,6 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VisibilityArea" unique_id=73379215]
 shape = SubResource("CircleShape2D_ebcs4")
 
-[node name="HealthBar" type="HBoxContainer" parent="." unique_id=1705138205]
-layout_direction = 2
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -13.0
-offset_top = -23.0
-offset_right = 13.0
-offset_bottom = -18.0
-grow_horizontal = 2
-grow_vertical = 0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 10
-alignment = 1
-script = ExtResource("3_ebcs4")
-heart_scene = ExtResource("4_ebcs4")
-
 [node name="HitBox" type="Area2D" parent="." unique_id=978255928]
 collision_layer = 4
 collision_mask = 0
@@ -385,6 +368,21 @@ position = Vector2(0, -8)
 shape = SubResource("CapsuleShape2D_ebcs4")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=799050157]
+
+[node name="HealthBar" type="TextureProgressBar" parent="." unique_id=2052044516]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -8.0
+offset_top = -17.0
+offset_right = 8.0
+offset_bottom = -16.0
+grow_horizontal = 2
+pivot_offset = Vector2(11, 0)
+size_flags_horizontal = 4
+texture_progress = SubResource("ExternalTexture_ckr1l")
+tint_under = Color(0, 0, 0, 0.9019608)
+tint_progress = Color(1, 0, 0, 1)
+script = ExtResource("3_ebcs4")
 
 [connection signal="area_entered" from="Attack_Light" to="." method="_on_attack_light_area_entered"]
 [connection signal="area_entered" from="Attack_Hight" to="." method="_on_attack_hight_area_entered"]

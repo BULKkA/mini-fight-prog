@@ -2,18 +2,32 @@
 
 [resource]
 data = {
-"player_spawn_position": [200, 200],
-"test_level": true,
-"waves": [{
-"enemies": [{
-"spawn_delay": 0,
-"type": "Orc"
-}],
-"wave_number": 1,
-"weapons": [{
-"spawn_delay": 0,
-"type": "Fire_Sword"
-}]
-}],
-"waves_count": 1
+	"player_spawn_position": [200, 200],
+	"test_level": true,
+	"waves": [
+		{
+			"wave_delay": 30,
+			"enemies": [
+				{
+					"spawn_delay": 2,
+					"type": "Orc",
+					"count": 5
+				}
+			],
+			"wave_number": 1,
+			"weapons": [
+				{
+					"spawn_delay": 0,
+					"type": "Fire_Sword",
+					"uses": 2
+				},
+				{
+					"spawn_delay": 1,
+					"type": "Ise_Sword",
+					"uses": 1
+				}
+			]
+		}
+	],
+	"waves_count": 1
 }

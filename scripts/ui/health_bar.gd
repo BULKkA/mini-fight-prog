@@ -1,19 +1,26 @@
-extends HBoxContainer
+extends TextureProgressBar
 
-@export var heart_scene: PackedScene
-var hearts = []
+var max_health
+var current_health
 
-# Called when the node enters the scene tree for the first time.
-func create_hearts(current_health):
-	for i in range(current_health):
-		var heart = heart_scene.instantiate()
-		add_child(heart)
-		hearts.append(heart)
-	update_hearts(current_health)
+var hp_tween: Tween
 
-func update_hearts(current_health):
-	var current_hearts = self.get_child_count()
-	var deleteCount = current_hearts - current_health 
-	for i in deleteCount:
-		var heart = self.get_child(current_hearts - (i + 1))
-		heart.queue_free()
+func create_hearts(health):
+	max_health = health
+	max_value = max_health
+	value = health
+
+func update_hearts(health):
+	current_health = clamp(health, 0, max_health)
+
+	if hp_tween:
+		hp_tween.kill()
+
+	hp_tween = create_tween()
+
+	hp_tween.tween_property(
+		self,
+		"value",
+		current_health,
+		0.2
+	)

@@ -6,7 +6,7 @@ data = {
 "AttackRange": 15,
 "Heaviness": 40,
 "Link": "res://scenes/combat/BaseEnemy.tscn",
-"MaxHealth": 5,
+"MaxHealth": 50,
 "Speed": 50
 }
 }

@@ -15,14 +15,8 @@ func _on_level_pressed(level_id):
 	OpenSceneWithData(level.link, level.level_data)
 
 func OpenSceneWithData(Scene, Data):
-	var new_scene = load(Scene)
-	var scene_data = load(Data)
-	InitializeScene(new_scene, scene_data.data)
-	get_tree().change_scene_to_packed(new_scene)
+	get_tree().change_scene_to_packed(load(Scene))
+	GlobalVar.Current_scene_data = load(Data).data
 
-func InitializeScene(scene, data):
-	SpawnManager.setScene(scene.instantiate())
-	SpawnManager.SpawnPlayer(data.player_spawn_position)
-	SpawnManager.StartWaves(data.waves_count, data.waves)
 	
 	

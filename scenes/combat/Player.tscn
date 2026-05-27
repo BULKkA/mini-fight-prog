@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://41ckefcceg55" path="res://art/animations/Player/Dash.png" id="2_ldesh"]
 [ext_resource type="Texture2D" uid="uid://bfh15rsqxgbbn" path="res://art/animations/Player/death.png" id="3_7yvbk"]
 [ext_resource type="Script" uid="uid://cywrwj2s0jr1w" path="res://scripts/ui/health_bar.gd" id="3_ahtcp"]
-[ext_resource type="PackedScene" uid="uid://cl1wbv2m2y43i" path="res://scenes/hud/heart.tscn" id="4_q0lwg"]
 [ext_resource type="Texture2D" uid="uid://dk8yx3blal0af" path="res://art/animations/Player/walk.png" id="5_oxw3g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2dh7g"]
@@ -1509,6 +1508,9 @@ _data = {
 radius = 13.0
 height = 36.0
 
+[sub_resource type="ExternalTexture" id="ExternalTexture_yjwra"]
+size = Vector2(16, 1)
+
 [node name="Player" type="CharacterBody2D" unique_id=1498142626]
 y_sort_enabled = true
 collision_layer = 2
@@ -1534,37 +1536,33 @@ position = Vector2(0, -1)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_ocxup")
 
-[node name="HealthBar" type="HBoxContainer" parent="." unique_id=1427207114]
-layout_direction = 2
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -13.0
-offset_top = -27.0
-offset_right = 13.0
-offset_bottom = -22.0
-grow_horizontal = 2
-grow_vertical = 0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 10
-alignment = 1
-script = ExtResource("3_ahtcp")
-heart_scene = ExtResource("4_q0lwg")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2132821885]
 libraries/ = SubResource("AnimationLibrary_ldesh")
 
 [node name="InteractBox" type="Area2D" parent="." unique_id=1041446050]
 collision_layer = 0
 collision_mask = 8
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractBox" unique_id=766912301]
 position = Vector2(0, -11)
 shape = SubResource("CapsuleShape2D_ldesh")
 
 [node name="Inventory" type="Node2D" parent="." unique_id=872289531]
+
+[node name="HealthBar" type="TextureProgressBar" parent="." unique_id=977265082]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -8.0
+offset_top = -25.0
+offset_right = 8.0
+offset_bottom = -24.0
+grow_horizontal = 2
+pivot_offset = Vector2(11, 0)
+size_flags_horizontal = 4
+texture_progress = SubResource("ExternalTexture_yjwra")
+tint_under = Color(0, 0, 0, 0.9019608)
+tint_progress = Color(1, 0, 0, 1)
+script = ExtResource("3_ahtcp")
 
 [connection signal="area_entered" from="InteractBox" to="." method="_on_interact_box_area_entered"]

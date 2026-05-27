@@ -11,7 +11,7 @@ const KNOCKBACK_DECAY := 900.0			# насколько быстро гаснет 
 @export var heaviness: float = 3.0
 @export var SPEED := 100.0
 @export var DASH_SPEED := 200.0
-@export var DASH_COOLDOWN := 2
+@export var DASH_COOLDOWN := 0.5
 
 var knockback_velocity: Vector2 = Vector2.ZERO
 
@@ -27,7 +27,7 @@ enum Direction{
 	DOWN_RIGHT
 }
 
-var Max_Helth = 3
+var Max_Helth = 100
 var current_health: int: 
 	set(value):
 		current_health = value
@@ -46,12 +46,14 @@ var dash_velocity: Vector2 = Vector2.DOWN
 func _ready():
 	HealthBar.create_hearts(Max_Helth)
 	current_health = Max_Helth
+	ConnectSignals()
 
 func _physics_process(delta: float) -> void:
 	
 	if get_tree().paused or is_dead: #or stun:
 		return
 	_update_knockback(delta)
+	InventoryInput()
 	
 	if is_dashing:
 		input_velocity = dash_velocity 
@@ -88,7 +90,7 @@ func dash() -> void:
 	dash_is_cooldown = true
 	await get_tree().create_timer(DASH_COOLDOWN).timeout
 	dash_is_cooldown = false
-	
+
 func _update_knockback(delta: float) -> void:
 	# Затухание отбрасывания
 	if knockback_velocity == Vector2.ZERO:
@@ -190,3 +192,26 @@ func remove_weapon(weapon):
 		else:
 			currentWeapon = null
 	weapons.erase(weapon)
+
+func ConnectSignals():
+	GlobalVar.AddWeapon.connect(add_weapon)
+	GlobalVar.RemoveWeapon.connect(remove_weapon)
+
+func InventoryInput():
+	if Input.is_action_pressed("slot_1"):
+		select_slot(0)
+	elif Input.is_action_pressed("slot_2"):
+		select_slot(1)
+	elif Input.is_action_pressed("slot_3"):
+		select_slot(2)
+	elif Input.is_action_pressed("slot_4"):
+		select_slot(3)
+	elif Input.is_action_pressed("slot_5"):
+		select_slot(4)
+
+func select_slot(slot_id):
+	var currentSlot = weapons.find(currentWeapon)
+	if currentSlot == -1 or currentSlot == slot_id or weapons.size() < slot_id + 1:
+		return
+	GlobalVar.SelectWeapon.emit(weapons[slot_id])
+	currentWeapon = weapons[slot_id] 
