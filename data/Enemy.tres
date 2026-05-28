@@ -2,11 +2,62 @@
 
 [resource]
 data = {
-"Orc": {
-"AttackRange": 15,
-"Heaviness": 40,
-"Link": "res://scenes/combat/BaseEnemy.tscn",
-"MaxHealth": 50,
-"Speed": 50
-}
+	"Orc": {
+		"AttackRange": 15,
+		"Heaviness": 40,
+		"Link": "res://scenes/combat/BaseEnemy.tscn",
+		"MaxHealth": 50,
+		"Speed": 50,
+		"Strength": 10,
+		"AttackSpeed": 1.5,
+		"Attacks": [
+			{
+				"Damage": 10,
+				"Name": "Attack_Light",
+				"Type": "Melee",
+				"Cooldown": 1.5
+			},
+			{
+				"Damage": 20,
+				"Name": "Attack_Hight",
+				"Type": "Melee",
+				"Cooldown": 3,
+				"Effect": "NONE"
+			}
+		]
+	},
+	"Mage": {
+		"AttackRange": 0,
+		"Heaviness": 20,
+		"Link": "res://scenes/combat/mage.tscn",
+		"MaxHealth": 30,
+		"Speed": 40,
+		"Strength": 0,
+		"AttackSpeed": 0,
+		"Attacks": [
+			{
+				"Damage": 10,
+				"Name": "Btoom",
+				"Type": "Magic",
+				"Cooldown": 3,
+				"Effect": "Explosion"
+			},
+			{
+				"Damage": 5,
+				"Name": "IseBall",
+				"Type": "Magic",
+				"Cooldown": 4,
+				"Effect": "Freeze"
+			}
+		],
+        "Spels": [
+            {
+                "Damage": 0,
+                "Name": "Teleport",
+                "Type": "Magic",
+                "Cooldown": 5,
+                "Effect": "NONE"
+            }
+        ]
+	}
 }

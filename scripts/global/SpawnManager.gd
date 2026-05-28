@@ -45,15 +45,13 @@ func SpawnEnemy(Enemy) -> void:
 	var enemy_data = enemies[Enemy]
 	var enemy = load(enemy_data.Link).instantiate()
 	enemy.global_position = spawnPoint.global_position
-	enemy.max_health = enemy_data.MaxHealth
-	enemy.speed = enemy_data.Speed
-	enemy.heaviness = enemy_data.Heaviness
-	enemy.attack_range = enemy_data.AttackRange
+	enemy.Init_Enemy(enemy_data)
 	add_child(enemy)
 
 func SpawnPlayer(position) -> void:
 	player = load("res://scenes/combat/Player.tscn").instantiate()
 	player.global_position = Vector2(position[0], position[1])
+	GlobalVar.player = player
 	add_child(player)
 
 func StartWaves(waves_count, Waves):

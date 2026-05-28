@@ -2,34 +2,21 @@ extends CharacterBody2D
 class_name BaseEnemy
 
 enum State {
-	IDLE,		# стоит на месте
-	CHASE,		# преследует цель
-	ATTACK,		# выполняет атаку (реализуется в наследниках)
-	RETURN		# возвращается к точке спавна
+	CHASE,		
+	ATTACK
 }
-
-var attacks = {}
-
-@export var speed := 80.0
-@export var max_health := 2
-@export var heaviness: float = 1.0
-@export var attack_range: float = 24.0
-
-@onready var visibility_area: Area2D = $VisibilityArea
-@onready var body_area: Area2D = $BodyArea
-@onready var exit_area: Area2D = $ExitArea
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
-@onready var Attack_LightArea = $Attack_Light
-@onready var Attack_HightArea = $Attack_Hight
-@onready var HealthBar: TextureProgressBar = $HealthBar
 
 const MIN_MOVE_SPEED_SQ := 0.0001
 const KNOCKBACK_DECAY := 2000.0
 
-var state: State = State.IDLE
-var target: Node2D = null
-var spawn_position: Vector2
+var attacks
+var spells
+var speed := 80.0
+var max_health := 2
+var heaviness: float = 1.0
+var attack_range: float = 24.0
+var state: State = State.CHASE
+var target: Node2D = GlobalVar.player
 var current_health: int: 
 	set(value):
 		current_health = value
@@ -43,32 +30,22 @@ var is_alive: bool = true
 var stun: bool  = false
 var currentAttack
 
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
+@onready var HealthBar: TextureProgressBar = $HealthBar
+
 func _ready() -> void:
-	attacks = {
-		"Attack_Light": {
-		"anim": "Attack_Light",
-		"area": Attack_LightArea,
-		"duration": 1,
-		"hitbox_start": 0.55,
-		"hitbox_end": 0.25,
-		"damage": 1
-		},
-		"Attack_Hight": {
-			"anim": "Attack_Hight",
-			"area": Attack_HightArea,
-			"duration": 2,
-			"hitbox_start": 1,
-			"hitbox_end": 0.25,
-			"damage": 2
-		}
-	}
-	spawn_position = global_position
 	HealthBar.create_hearts(max_health)
 	current_health = max_health
 
 	navigation_agent.path_desired_distance = 4.0
 	navigation_agent.target_desired_distance = attack_range
 	navigation_agent.avoidance_enabled = false
+
+	_On_Ready()
+
+func _On_Ready() -> void:
+	pass
 
 func _physics_process(delta: float) -> void:
 	if not is_alive:
@@ -79,19 +56,18 @@ func _physics_process(delta: float) -> void:
 		return
 		
 	match state:
-		State.IDLE:
-			_idle(delta)
 		State.CHASE:
 			_chase(delta)
 		State.ATTACK:
 			_attack(delta)
-		State.RETURN:
-			_return(delta)
 			
 	velocity = movement_velocity + knockback_velocity
 	_set_facing_dir_from_direction(velocity)
 	_update_animation()
-	
+
+func Init_Enemy(EnemyData):
+	GlobalFunc.copy_all_properties(EnemyData, self)
+
 
 func _update_knockback(delta: float) -> void:
 	if knockback_velocity == Vector2.ZERO:
@@ -152,61 +128,14 @@ func _attack(delta: float) -> void:
 	movement_velocity = Vector2.ZERO
 	if not is_attacking:
 		is_attacking = true
-		currentAttack = attacks.Attack_Light if randi_range(0,  100) > 15 else attacks.Attack_Hight
-		_perform_attack(currentAttack)
+		await _perform_attack()
+		is_attacking = false
 
-func _return(delta: float) -> void:
-	navigation_agent.target_position = spawn_position
-
-	var next_point: Vector2 = navigation_agent.get_next_path_position()
-	var to_next: Vector2 = next_point - global_position
-
-	if global_position.distance_to(spawn_position) < 5.0:
-		set_state(State.IDLE)
-		movement_velocity = Vector2.ZERO
-		return
-
-	if to_next.length_squared() > MIN_MOVE_SPEED_SQ:
-		var normalized_dir: Vector2 = to_next.normalized()
-		movement_velocity = normalized_dir * speed
-		_update_facing_from_direction(normalized_dir)
-	else:
-		movement_velocity = Vector2.ZERO
-
-func _perform_attack(AttackType) -> void:
-	
-	is_attacking = true
-	_sync_attack_box_to_facing_dir(AttackType)
-	
-	await get_tree().create_timer(0.4).timeout
-	
-	_play_attack_animation(AttackType.anim)
-	
-	await get_tree().create_timer(AttackType.hitbox_start).timeout
-	AttackType.area.monitoring = true
-	await get_tree().create_timer(AttackType.hitbox_end).timeout
-	AttackType.area.monitoring = false
-	is_attacking = false
-	
-	await get_tree().create_timer(0.5).timeout
-	
-	if target:
-		set_state(State.CHASE)
-	else:
-		set_state(State.RETURN)
+func _perform_attack():
+	return true
 
 func _update_facing_from_direction(dir: Vector2) -> void:
 	facing_dir = Vector2.LEFT if dir.x < 0.0 else Vector2.RIGHT
-
-func _play_attack_animation(AttackType) -> void:
-	if not is_alive:
-		return
-	if movement_velocity.x < 0:
-		animated_sprite.flip_h = true
-		_set_animation(AttackType)
-	else:
-		animated_sprite.flip_h = false
-		_set_animation(AttackType)
 
 func set_state(new_state: State) -> void:
 	if new_state == state:
@@ -253,32 +182,6 @@ func die() -> void:
 	_set_animation("Die")
 	await animated_sprite.animation_finished
 	clothCollisions()
-	
-
-func _on_visibility_area_area_entered(area: Area2D) -> void:
-	target = area.get_parent() if area.get_parent() is Node2D else area
-	if state != State.ATTACK:
-		set_state(State.CHASE)
-
-func _on_body_area_area_entered(area: Area2D) -> void:
-	if area == target or area.get_parent() == target:
-		movement_velocity = Vector2.ZERO
-		set_state(State.ATTACK)
-
-func _on_body_area_area_exited(area: Area2D) -> void:
-	if area == target or area.get_parent() == target:
-		set_state(State.CHASE)
-
-func _on_exit_area_area_exited(area: Area2D) -> void:
-	if area == target or area.get_parent() == target:
-		target = null
-		set_state(State.RETURN)
-
-func _on_attack_light_area_entered(area: Area2D) -> void:
-	attackBody(area.get_parent())
-
-func _on_attack_hight_area_entered(area: Area2D) -> void:
-	attackBody(area.get_parent())
 
 func attackBody(body):
 	var dir := Vector2.ZERO

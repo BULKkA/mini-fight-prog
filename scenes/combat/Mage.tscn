@@ -397,14 +397,16 @@ size = Vector2(16, 1)
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1543367343]
 script = ExtResource("1_t6i7h")
+speed = null
+max_health = null
+heaviness = null
+attack_range = null
 
 [node name="Body" type="AnimatedSprite2D" parent="." unique_id=339783361]
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_a5ubv")
 animation = &"Die"
 autoplay = "Idle"
-frame = 3
-frame_progress = 1.0
 
 [node name="Teleport" type="AnimatedSprite2D" parent="." unique_id=1926950619]
 visible = false
