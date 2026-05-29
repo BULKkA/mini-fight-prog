@@ -29,6 +29,7 @@ var facing_dir: Vector2 = Vector2.RIGHT
 var is_alive: bool = true
 var stun: bool  = false
 var currentAttack
+var can_be_stunned: bool = true
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
@@ -99,8 +100,6 @@ func _set_facing_dir_from_direction(direction: Vector2) -> void:
 	if direction.x != 0:
 		facing_dir = Vector2.LEFT if direction.x < 0.0 else Vector2.RIGHT
 
-func _sync_attack_box_to_facing_dir(AttackType) -> void:
-	AttackType.area.scale.x = -1 if facing_dir == Vector2.LEFT else 1
 
 func _idle(delta: float) -> void:
 	movement_velocity = Vector2.ZERO
@@ -168,7 +167,7 @@ func take_hit(amount: int, knockback: Dictionary = {}) -> void:
 
 	if current_health <= 0:
 		die()
-	else:
+	elif can_be_stunned:
 		stun = true
 		_set_animation("Hurt")
 		await animated_sprite.animation_finished

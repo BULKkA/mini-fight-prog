@@ -3,13 +3,14 @@
 [resource]
 data = {
 	"Orc": {
-		"AttackRange": 15,
-		"Heaviness": 40,
+		"attack_range": 15,
+		"heaviness": 40,
 		"Link": "res://scenes/combat/BaseEnemy.tscn",
-		"MaxHealth": 50,
-		"Speed": 50,
+		"max_health": 50,
+		"speed": 50,
 		"Strength": 10,
 		"AttackSpeed": 1.5,
+		"can_be_stunned": true,
 		"Attacks": [
 			{
 				"Damage": 10,
@@ -27,13 +28,14 @@ data = {
 		]
 	},
 	"Mage": {
-		"AttackRange": 0,
-		"Heaviness": 20,
+		"attack_range": 0,
+		"heaviness": 20,
 		"Link": "res://scenes/combat/mage.tscn",
-		"MaxHealth": 30,
-		"Speed": 40,
+		"max_health": 30,
+		"speed": 40,
 		"Strength": 0,
 		"AttackSpeed": 0,
+		"can_be_stunned": true,
 		"Attacks": [
 			{
 				"Damage": 10,
@@ -50,7 +52,7 @@ data = {
 				"Effect": "Freeze"
 			}
 		],
-        "Spels": [
+        "spells": [
             {
                 "Damage": 0,
                 "Name": "Teleport",

@@ -19,8 +19,6 @@ func _perform_attack():
 	await get_tree().create_timer(AttackType.hitbox_end).timeout
 	AttackType.area.monitoring = false
 	
-	is_attacking = false
-	
 	await get_tree().create_timer(0.5).timeout
 	
 	return true
@@ -35,6 +33,9 @@ func _play_attack_animation(AttackType) -> void:
 		animated_sprite.flip_h = false
 		_set_animation(AttackType)
 
+func _sync_attack_box_to_facing_dir(AttackType) -> void:
+	AttackType.area.scale.x = -1 if facing_dir == Vector2.LEFT else 1
+	
 func _on_attack_light_area_entered(area: Area2D) -> void:
 	attackBody(area.get_parent())
 
