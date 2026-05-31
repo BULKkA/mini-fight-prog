@@ -3,33 +3,33 @@
 [resource]
 data = {
 "Default_Sword": {
-"id" : "Default_Sword",
-"damage": 1,
-"effect": "NONE",
-"strength": 70
+"Name" : "Default_Sword",
+"Damage": 15,
+"Effect": "NONE",
+"Strength": 70
 },
 "Fire_Sword": {
-"id" : "Fire_Sword",
-"damage": 2,
-"effect": "FIRE",
-"strength": 60
+"Name" : "Fire_Sword",
+"Damage": 20,
+"Effect": "FIRE",
+"Strength": 60
 },
 "Fly_Sword": {
-"id" : "Fly_Sword",
-"damage": 1,
-"effect": "NONE",
-"strength": 200
+"Name" : "Fly_Sword",
+"Damage": 15,
+"Effect": "NONE",
+"Strength": 200
 },
 "Ise_Sword": {
-"id" : "Ise_Sword",
-"damage": 3,
-"effect": "ISE",
-"strength": 50
+"Name" : "Ise_Sword",
+"Damage": 20,
+"Effect": "FREEZE",
+"Strength": 50
 },
 "Poison_Sword": {
-"id" : "Poison_Sword",
-"damage": 2,
-"effect": "POISON",
-"strength": 30
+"Name" : "Poison_Sword",
+"Damage": 13,
+"Effect": "POISON",
+"Strength": 30
 }
 }

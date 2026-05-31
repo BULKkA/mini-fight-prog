@@ -1,76 +1,80 @@
 extends BaseEnemy
-  
-func _ready() -> void:
 
-	spawn_position = global_position
-	HealthBar.create_hearts(max_health)
-	current_health = max_health
-
-	navigation_agent.path_desired_distance = 4.0
-	navigation_agent.target_desired_distance = attack_range
-	navigation_agent.avoidance_enabled = false
-
-
-func _physics_process(delta: float) -> void:
-	if not is_alive:
-		return
-	move_and_slide()
-	_update_knockback(delta)
-	if is_attacking or stun:
-		return
-		
-	match state:
-		State.IDLE:
-			_idle(delta)
-		State.CHASE:
-			_chase(delta)
-		State.ATTACK:
-			_attack(delta)
-		State.RETURN:
-			_return(delta)
-			
-	velocity = movement_velocity + knockback_velocity
-	_set_facing_dir_from_direction(velocity)
-	_update_animation()
+var is_Casting = false
+@onready var Casts: AnimatedSprite2D = $Casts
 
 func _chase(delta: float) -> void:
-	if target:
-		navigation_agent.target_position 
-		var next_point: Vector2 = navigation_agent.get_next_path_position()
-		var to_next: Vector2 = next_point - global_position
-		if to_next.length_squared() > MIN_MOVE_SPEED_SQ:
-			var dir: Vector2 = to_next.normalized()
-			movement_velocity = dir * speed
-			_update_facing_from_direction(dir)
-		else:
-			movement_velocity = Vector2.ZERO
+	if not target:
+		target = GlobalVar.Player
+	var roll := randi_range(0, 100)
+	if roll < 10:
+		movement_velocity = Vector2.ZERO
 		set_state(State.ATTACK)
+		return
+	if roll > 90:
+		Use_Spell(spells[randi_range(0, spells.size() - 1)])
+		set_state(State.ATTACK)
+		return
+	if navigation_agent.is_navigation_finished():
+		var offset := Vector2(
+			randf_range(-120, 120),
+			randf_range(-120, 120)
+		)
+		navigation_agent.target_position = self.global_position + offset
+	var next_point: Vector2 = navigation_agent.get_next_path_position()
+	var dir: Vector2 = (next_point - global_position).normalized()
+	if randf() < 0.05:
+		movement_velocity = Vector2.ZERO
+		return
+	movement_velocity = dir * speed
+	_update_facing_from_direction(dir)
 
-func _attack(delta: float) -> void:
-	movement_velocity = Vector2.ZERO
-	if not is_attacking:
-		is_attacking = true
-		currentAttack = attacks.Attack_Light if randi_range(0,  100) > 15 else attacks.Attack_Hight
-		_perform_attack(currentAttack)
-
-func _perform_attack(AttackType) -> void:
-	
-	is_attacking = true
-	_sync_attack_box_to_facing_dir(AttackType)
-	
+func _perform_attack() -> void:
+	if Casts.visible:
+		return
 	await get_tree().create_timer(0.4).timeout
+	currentAttack = attacks[randi_range(0,  attacks.size() - 1)]
+	Casts.visible = true
+	Casts.play(currentAttack.Name)
+	await Casts.animation_finished
+	Casts.visible = false
+	SpawnMagic(load(currentAttack.Body).instantiate())
+	set_state(State.CHASE)
+
+func Use_Spell(Spell):
+	Casts.visible = true
+	Casts.play(Spell.Name)
+	if Spell.Name == "Teleport":
+		AnimPlayer.play("Teleport")
+		await  AnimPlayer.animation_finished
+		Teleport()
+	await Casts.animation_finished 
+	Casts.visible = false
+	set_state(State.CHASE)
+
+func Teleport():
+	var nav_map := get_world_2d().navigation_map
+	for i in range(10):
+		var offset := Vector2(
+			randf_range(-150, 150),
+			randf_range(-150, 150)
+		)
+		var pos := self.global_position + offset
+		var closest_point := NavigationServer2D.map_get_closest_point(nav_map, pos)
+		if closest_point.distance_to(pos) > 20:
+			continue
+		navigation_agent.target_position = closest_point
+		if navigation_agent.is_target_reachable():
+			global_position = closest_point
+			navigation_agent.velocity = Vector2.ZERO
+			return
+
+func SpawnMagic(Magic):
+	Magic.global_position = target.global_position
+	GlobalFunc.copy_all_properties(currentAttack, Magic)
+	get_tree().current_scene.add_child(Magic)
+
+func _on_die():
+	Casts.stop()
+	Casts.visible = false
 	
-	_play_attack_animation(AttackType.anim)
-	
-	await get_tree().create_timer(AttackType.hitbox_start).timeout
-	AttackType.area.monitoring = true
-	await get_tree().create_timer(AttackType.hitbox_end).timeout
-	AttackType.area.monitoring = false
-	is_attacking = false
-	
-	await get_tree().create_timer(0.5).timeout
-	
-	if target:
-		set_state(State.CHASE)
-	else:
-		set_state(State.RETURN)

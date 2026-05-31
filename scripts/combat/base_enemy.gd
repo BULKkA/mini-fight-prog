@@ -16,7 +16,7 @@ var max_health := 2
 var heaviness: float = 1.0
 var attack_range: float = 24.0
 var state: State = State.CHASE
-var target: Node2D = GlobalVar.player
+var target = GlobalVar.Player
 var current_health: int: 
 	set(value):
 		current_health = value
@@ -32,6 +32,7 @@ var currentAttack
 var can_be_stunned: bool = true
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var AnimPlayer: AnimationPlayer = $AnimationPlayer
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var HealthBar: TextureProgressBar = $HealthBar
 
@@ -101,28 +102,29 @@ func _set_facing_dir_from_direction(direction: Vector2) -> void:
 		facing_dir = Vector2.LEFT if direction.x < 0.0 else Vector2.RIGHT
 
 
-func _idle(delta: float) -> void:
-	movement_velocity = Vector2.ZERO
-
 func _chase(delta: float) -> void:
-	if target:
-		navigation_agent.target_position = target.global_position
+	if not target:
+		return
+		
+	navigation_agent.target_position = target.global_position
 
-		var next_point: Vector2 = navigation_agent.get_next_path_position()
-		var to_next: Vector2 = next_point - global_position
+	var next_point: Vector2 = navigation_agent.get_next_path_position()
+	var to_next: Vector2 = next_point - global_position
 
-		if to_next.length_squared() > MIN_MOVE_SPEED_SQ:
-			var dir: Vector2 = to_next.normalized()
-			movement_velocity = dir * speed
-			_update_facing_from_direction(dir)
-		else:
-			movement_velocity = Vector2.ZERO
-
-		if global_position.distance_to(target.global_position) <= attack_range:
-			set_state(State.ATTACK)
+	if to_next.length_squared() > MIN_MOVE_SPEED_SQ:
+		var dir: Vector2 = to_next.normalized()
+		movement_velocity = dir * speed
+		_update_facing_from_direction(dir)
 	else:
 		movement_velocity = Vector2.ZERO
 
+	if global_position.distance_to(target.global_position) <= attack_range:
+		set_state(State.ATTACK)
+	
+	if randf() < 0.05:
+		movement_velocity = Vector2.ZERO
+		return
+	
 func _attack(delta: float) -> void:
 	movement_velocity = Vector2.ZERO
 	if not is_attacking:
@@ -130,8 +132,8 @@ func _attack(delta: float) -> void:
 		await _perform_attack()
 		is_attacking = false
 
-func _perform_attack():
-	return true
+func _perform_attack() -> void:
+	pass
 
 func _update_facing_from_direction(dir: Vector2) -> void:
 	facing_dir = Vector2.LEFT if dir.x < 0.0 else Vector2.RIGHT
@@ -150,7 +152,7 @@ func _on_state_enter(new_state: State) -> void:
 func _on_state_exit(old_state: State) -> void:
 	pass
 
-func take_hit(amount: int, knockback: Dictionary = {}) -> void: 
+func take_hit(amount: int, knockback: Dictionary = {}, Effect = GlobalVar.Effect.NONE) -> void: 
 	if not is_alive:
 		return
 		
@@ -164,7 +166,9 @@ func take_hit(amount: int, knockback: Dictionary = {}) -> void:
 
 		if dir != Vector2.ZERO and strength > 0.0:
 			knockback_velocity += dir.normalized() * (strength / safe_heaviness)
-
+	
+	_Take_Effect(Effect)
+	
 	if current_health <= 0:
 		die()
 	elif can_be_stunned:
@@ -173,14 +177,23 @@ func take_hit(amount: int, knockback: Dictionary = {}) -> void:
 		await animated_sprite.animation_finished
 		stun = false
 
+func _Take_Effect(Effect):
+	pass
+
 func _on_take_damage(amount: int) -> void:
 	pass
 
 func die() -> void:
 	is_alive = false 
+	_on_die()
 	_set_animation("Die")
 	await animated_sprite.animation_finished
 	clothCollisions()
+	await get_tree().create_timer(3).timeout
+	queue_free()
+
+func _on_die():
+	pass
 
 func attackBody(body):
 	var dir := Vector2.ZERO
@@ -194,7 +207,7 @@ func attackBody(body):
 		"direction": dir,
 		"strength": 220.0
 	}
-	body.take_hit(currentAttack.damage, knockback)
+	body.take_hit(currentAttack.Damage, knockback, GlobalVar.Effect[currentAttack.Effect])
 
 func get_current_health():
 	return current_health

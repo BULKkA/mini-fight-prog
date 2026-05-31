@@ -7,6 +7,14 @@ var Player: CharacterBody2D
 var Enemies: Dictionary = load("res://data/Enemy.tres").data
 var Weapons: Dictionary = load("res://data/Weapons.tres").data
 
+enum Effect{
+	NONE,
+	FIRE,
+	FREEZE,
+	POISON,
+	EXPLOSION
+}
+
 signal SelectWeapon(weapon)
 signal AddWeapon(weapon)
 signal RemoveWeapon(weapon)

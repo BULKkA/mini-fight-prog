@@ -10,8 +10,8 @@ data = {
 			"enemies": [
 				{
 					"spawn_delay": 2,
-					"type": "Orc",
-					"count": 5
+					"type": "Mage",
+					"count": 1
 				}
 			],
 			"wave_number": 1,
@@ -19,12 +19,12 @@ data = {
 				{
 					"spawn_delay": 0,
 					"type": "Fire_Sword",
-					"uses": 2
+					"Uses": 99
 				},
 				{
 					"spawn_delay": 1,
 					"type": "Ise_Sword",
-					"uses": 1
+					"Uses": 99
 				}
 			]
 		}

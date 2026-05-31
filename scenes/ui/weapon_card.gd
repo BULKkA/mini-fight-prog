@@ -9,9 +9,9 @@ func _ready() -> void:
 	AnimPlayer.play("Create")
 
 func SetData(Data):
-	Damage.text = String.num_int64(Data.damage)
-	Uses.text = String.num_int64(Data.uses)
-	Anim.play(Data.id)
+	Damage.text = String.num_int64(Data.Damage)
+	Uses.text = String.num_int64(Data.Uses)
+	Anim.play(Data.Name)
 
 func playerAttack():
 	pass

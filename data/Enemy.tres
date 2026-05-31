@@ -2,64 +2,58 @@
 
 [resource]
 data = {
-	"Orc": {
-		"attack_range": 15,
-		"heaviness": 40,
-		"Link": "res://scenes/combat/BaseEnemy.tscn",
-		"max_health": 50,
-		"speed": 50,
-		"Strength": 10,
-		"AttackSpeed": 1.5,
-		"can_be_stunned": true,
-		"Attacks": [
-			{
-				"Damage": 10,
-				"Name": "Attack_Light",
-				"Type": "Melee",
-				"Cooldown": 1.5
-			},
-			{
-				"Damage": 20,
-				"Name": "Attack_Hight",
-				"Type": "Melee",
-				"Cooldown": 3,
-				"Effect": "NONE"
-			}
-		]
-	},
-	"Mage": {
-		"attack_range": 0,
-		"heaviness": 20,
-		"Link": "res://scenes/combat/mage.tscn",
-		"max_health": 30,
-		"speed": 40,
-		"Strength": 0,
-		"AttackSpeed": 0,
-		"can_be_stunned": true,
-		"Attacks": [
-			{
-				"Damage": 10,
-				"Name": "Btoom",
-				"Type": "Magic",
-				"Cooldown": 3,
-				"Effect": "Explosion"
-			},
-			{
-				"Damage": 5,
-				"Name": "IseBall",
-				"Type": "Magic",
-				"Cooldown": 4,
-				"Effect": "Freeze"
-			}
-		],
-        "spells": [
-            {
-                "Damage": 0,
-                "Name": "Teleport",
-                "Type": "Magic",
-                "Cooldown": 5,
-                "Effect": "NONE"
-            }
-        ]
-	}
+"Mage": {
+"Link": "res://scenes/combat/Mage.tscn",
+"Strength": 0,
+"attackSpeed": 0,
+"attack_range": 0,
+"attacks": [{
+"Body": "res://scenes/combat/mage_attacks/btoom.tscn",
+"Damage": 10,
+"Effect": "EXPLOSION",
+"Name": "Btoom",
+"Strength": 100,
+"Type": "Magic"
+}, {
+"Body": "res://scenes/combat/mage_attacks/IseBall.tscn",
+"Damage": 5,
+"Effect": "FREEZE",
+"Name": "IseBall",
+"Strength": 0,
+"Type": "Magic"
+}],
+"can_be_stunned": true,
+"heaviness": 20,
+"max_health": 30,
+"speed": 40,
+"spells": [{
+"Damage": 0,
+"Effect": "NONE",
+"Name": "Teleport",
+"Type": "Magic"
+}]
+},
+"Orc": {
+"Link": "res://scenes/combat/Orc.tscn",
+"Strength": 10,
+"attackSpeed": 1.5,
+"attack_range": 15,
+"attacks": [{
+"Damage": 10,
+"Effect": "NONE",
+"Name": "Attack_Light",
+"Strength": 40,
+"Type": "Melee"
+}, {
+"Damage": 20,
+"Effect": "NONE",
+"Name": "Attack_Hight",
+"Strength": 50,
+"Type": "Melee"
+}],
+"can_be_stunned": true,
+"heaviness": 40,
+"max_health": 50,
+"speed": 50
+}
 }

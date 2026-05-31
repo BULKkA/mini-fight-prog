@@ -25,7 +25,7 @@ func SpawnWeapon(Weapon_Spawn_Data) -> void:
 	var spawnPoint = Level_SpawnPoints[randi() % Level_SpawnPoints.size()]	
 	var weapon_data = GlobalVar.Weapons[Weapon_Spawn_Data.type]
 	var weapon = GlobalVar.Weapon_scene.instantiate()
-	weapon_data["uses"] = Weapon_Spawn_Data.uses 
+	weapon_data["Uses"] = Weapon_Spawn_Data.Uses 
 	weapon.set_weapon_data(Weapon_Spawn_Data.type, weapon_data)
 	weapon.global_position = spawnPoint.global_position
 	add_child(weapon)
@@ -48,7 +48,7 @@ func SpawnEnemy(Enemy) -> void:
 func SpawnPlayer(position) -> void:
 	player = load("res://scenes/combat/Player.tscn").instantiate()
 	player.global_position = Vector2(position[0], position[1])
-	GlobalVar.player = player
+	GlobalVar.Player = player
 	add_child(player)
 
 func StartWaves(waves_count, Waves):
@@ -56,8 +56,3 @@ func StartWaves(waves_count, Waves):
 		spawn_enemies(wave.enemies)
 		spawn_weapons(wave.weapons) 
 		await get_tree().create_timer(wave.wave_delay).timeout
-	
-	
-	
-	
-	

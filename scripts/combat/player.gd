@@ -15,7 +15,7 @@ const KNOCKBACK_DECAY := 900.0			# насколько быстро гаснет 
 
 var knockback_velocity: Vector2 = Vector2.ZERO
 
-var weapons = []
+var weapons:Array = []
 var currentWeapon
 
 enum Direction{
@@ -143,7 +143,7 @@ func attack() -> void:
 	await currentWeapon.attack(direction)
 	is_attacking = false
 
-func take_hit(amount: int, knockback: Dictionary = {}) -> void:
+func take_hit(amount: int, knockback: Dictionary = {}, Effect = GlobalVar.Effect.NONE) -> void:
 	if is_dead or amount <= 0:
 		return
 		

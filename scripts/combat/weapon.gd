@@ -21,23 +21,23 @@ func _ready() -> void:
 	
 func set_weapon_data(weapon_type, weapon_data):
 	data = weapon_data
-	currentCollision = get_node("AttackBox").get_node(weapon_data.id)
+	currentCollision = get_node("AttackBox").get_node(weapon_data.Name)
 	AnimSprite2D = get_node("AttackBox/AnimatedSprite2D")
-	AnimSprite2D.play(weapon_data.id)
+	AnimSprite2D.play(weapon_data.Name)
 
 func attack(direction: Vector2) -> void:
 
-	data["uses"] -= 1
+	data["Uses"] -= 1
 	GlobalVar.PlayerAttack.emit(self, data)
 	rotation = direction.angle() + PI / 2
 	self.visible = true
-	AnimSprite2D.play(data.id)
+	AnimSprite2D.play(data.Name)
 	currentCollision.disabled = false
 	AnimPlayer.play("Attack")
 	await AnimPlayer.animation_finished
 	currentCollision.disabled = true
 	self.visible = false
-	if data["uses"] <= 0:
+	if data["Uses"] <= 0:
 		GlobalVar.RemoveWeapon.emit(self)
 		queue_free()
 
@@ -48,13 +48,13 @@ func attackBody(body):
 	var direction = (body.global_position - global_position).normalized()
 	var knockback := {
 		"direction": direction,
-		"strength": data.strength
+		"strength": data.Strength
 	}
-	body.take_hit(data.damage, knockback)
+	body.take_hit(data.Damage, knockback, GlobalVar.Effect[data.Effect])
 	
 func Interact(in_player):
 	player = in_player
-	if player.weapons.size <= 4:
+	if player.weapons.size() <= 4:
 		call_deferred("add_weapon", self)
 
 func add_weapon(weapon):
