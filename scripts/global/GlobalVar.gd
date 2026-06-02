@@ -16,12 +16,12 @@ enum Effect{
 	EXPLOSION
 }
 
-
+signal NextWave(Wave)
+signal LevelFinish(Level_Id)
 
 signal SelectWeapon(weapon)
 signal AddWeapon(weapon)
 signal RemoveWeapon(weapon)
 signal PlayerAttack(weapon, data)
-signal NextWave(Wave)
 signal SetHealth(health)
 signal SetStamina(stamina)

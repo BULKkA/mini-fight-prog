@@ -276,8 +276,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_deysu"]
-radius = 1.0
-height = 10.0
+radius = 2.0
+height = 6.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ebcs4"]
 radius = 6.0
@@ -389,6 +389,10 @@ polygon = PackedVector2Array(1, 0, 11, 11, 25, -5, 25, -17, 11, -24, 2, -19, 10,
 disabled = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1422077590]
+simplify_path = true
+radius = 30.0
+neighbor_distance = 1000.0
+time_horizon_agents = 0.1
 
 [node name="HitBox" type="Area2D" parent="." unique_id=978255928]
 collision_layer = 4

@@ -1,3 +1,14 @@
 [gd_scene format=3 uid="uid://dpossyrhlmvte"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_81je2"]
+vertices = PackedVector2Array(10.9609375, 262.95313, 114, 210, 127, 209, 178, 209, 469.03125, 261.03906, 61, 210, 469.96094, 10, 369, 145, 369, 124, 10.0390625, 10, 61, 187, 319, 124, 114, 187, 127, 187, 319, 145, 178, 145, 178, 124, 127, 124, 178, 187, 113, 145, 127, 145, 63, 145, 63, 124, 113, 124)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 1, 0), PackedInt32Array(6, 4, 7, 8), PackedInt32Array(5, 0, 9, 10), PackedInt32Array(9, 6, 8, 11), PackedInt32Array(2, 1, 12, 13), PackedInt32Array(11, 14, 15, 16), PackedInt32Array(9, 11, 16), PackedInt32Array(9, 16, 17), PackedInt32Array(4, 3, 18), PackedInt32Array(4, 18, 19, 20), PackedInt32Array(19, 18, 13), PackedInt32Array(19, 13, 12), PackedInt32Array(19, 12, 10, 21), PackedInt32Array(21, 10, 9, 22), PackedInt32Array(23, 22, 9), PackedInt32Array(23, 9, 17), PackedInt32Array(23, 17, 20, 19), PackedInt32Array(4, 20, 15), PackedInt32Array(4, 15, 14), PackedInt32Array(4, 14, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 1, 273, 479, 271, 480, 0), PackedVector2Array(104, 200, 71, 200, 71, 197, 104, 197), PackedVector2Array(137, 199, 137, 197, 168, 197, 168, 199), PackedVector2Array(137, 135, 137, 134, 168, 134, 168, 135), PackedVector2Array(73, 135, 73, 134, 103, 134, 103, 135), PackedVector2Array(329, 135, 329, 134, 359, 134, 359, 135)])
+
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=789529876]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1089392932]
+navigation_polygon = SubResource("NavigationPolygon_81je2")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="NavigationRegion2D" unique_id=807293913]
+navigation_polygon = SubResource("NavigationPolygon_81je2")

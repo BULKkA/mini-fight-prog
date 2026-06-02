@@ -804,7 +804,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Dash_DOWN",
-"speed": 15.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -833,7 +833,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Dash_DOWN_LEFT",
-"speed": 15.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -862,7 +862,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Dash_DOWN_RIGHT",
-"speed": 15.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -891,7 +891,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Dash_UP",
-"speed": 15.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -920,7 +920,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Dash_UP_LEFT",
-"speed": 15.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -949,7 +949,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Dash_UP_RIGHT",
-"speed": 15.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1479,7 +1479,7 @@ radius = 6.0
 height = 22.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ocxup"]
-radius = 1.0
+radius = 2.0
 height = 10.0
 
 [sub_resource type="Animation" id="Animation_ldesh"]
@@ -1519,7 +1519,7 @@ script = ExtResource("1_ocxup")
 [node name="PlayerAnim" type="AnimatedSprite2D" parent="." unique_id=1202585683]
 position = Vector2(0, -11)
 sprite_frames = SubResource("SpriteFrames_2dh7g")
-animation = &"Idle_DOWN"
+animation = &"Dash_UP_RIGHT"
 autoplay = "Idle_DOWN"
 
 [node name="HitBox" type="Area2D" parent="." unique_id=8140710]

@@ -20,3 +20,35 @@ script = ExtResource("1_wmhvx")
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1227415779]
 visible = false
 navigation_polygon = SubResource("NavigationPolygon_nrp6w")
+
+[node name="EnemySpawners" type="Node2D" parent="." unique_id=1535244986]
+
+[node name="Node2D" type="Node2D" parent="EnemySpawners" unique_id=1832739964]
+position = Vector2(106, 62)
+
+[node name="Node2D2" type="Node2D" parent="EnemySpawners" unique_id=1627465798]
+position = Vector2(386, 62)
+
+[node name="Node2D3" type="Node2D" parent="EnemySpawners" unique_id=599198647]
+position = Vector2(229, 45)
+
+[node name="Node2D4" type="Node2D" parent="EnemySpawners" unique_id=219785499]
+position = Vector2(277, 47)
+
+[node name="Node2D5" type="Node2D" parent="EnemySpawners" unique_id=70181963]
+position = Vector2(46, 230)
+
+[node name="Node2D6" type="Node2D" parent="EnemySpawners" unique_id=696173825]
+position = Vector2(433, 235)
+
+[node name="Node2D7" type="Node2D" parent="EnemySpawners" unique_id=1636867003]
+position = Vector2(254, 224)
+
+[node name="WeaponSpawners" type="Node2D" parent="." unique_id=222908184]
+position = Vector2(228, 49)
+
+[node name="Node2D" type="Node2D" parent="WeaponSpawners" unique_id=84410366]
+position = Vector2(-108, 109)
+
+[node name="Node2D2" type="Node2D" parent="WeaponSpawners" unique_id=1958101708]
+position = Vector2(148, 110)
