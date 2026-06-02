@@ -31,10 +31,13 @@ var stun: bool  = false
 var currentAttack
 var can_be_stunned: bool = true
 
+var CurrentEffects: Array = []
+
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var AnimPlayer: AnimationPlayer = $AnimationPlayer
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var HealthBar: TextureProgressBar = $HealthBar
+@onready var EffectBar: VBoxContainer = $EffectBar
 
 func _ready() -> void:
 	HealthBar.create_hearts(max_health)
@@ -70,7 +73,6 @@ func _physics_process(delta: float) -> void:
 func Init_Enemy(EnemyData):
 	GlobalFunc.copy_all_properties(EnemyData, self)
 
-
 func _update_knockback(delta: float) -> void:
 	if knockback_velocity == Vector2.ZERO:
 		return
@@ -100,7 +102,6 @@ func _set_animation(animation_name: StringName) -> void:
 func _set_facing_dir_from_direction(direction: Vector2) -> void:
 	if direction.x != 0:
 		facing_dir = Vector2.LEFT if direction.x < 0.0 else Vector2.RIGHT
-
 
 func _chase(delta: float) -> void:
 	if not target:
@@ -216,3 +217,10 @@ func clothCollisions():
 	for child in get_children():
 		if child is Area2D:
 			child.monitorable = false
+
+func updateEffectBar():
+	EffectBar.clear()
+	for effect in CurrentEffects:
+		var effect_icon = TextureRect.new()
+		effect_icon.texture = GlobalVar.Weapons[currentAttack.Weapon].EffectIcons[effect]
+		EffectBar.add_child(effect_icon)

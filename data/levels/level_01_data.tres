@@ -1,0 +1,66 @@
+[gd_resource type="JSON" format=3 uid="uid://dys6sj6t1n4iu"]
+
+[resource]
+data = {
+	"player_spawn_position": [200, 200],
+	"test_level": false,
+	"waves": [
+		{
+			"wave_number": 1,
+			"wave_delay": 5,
+			"enemies": [
+				{
+					"type": "Orc",
+					"count": 4,
+					"spawn_delay": 1.5
+				}
+			],
+			"weapons": [
+				{
+					"type": "Default_Sword",
+					"spawn_delay": 0,
+					"Uses": 10
+				},
+				{
+					"type": "Poison_Sword",
+					"spawn_delay": 2,
+					"Uses": 8
+				}
+			]
+		},
+		{
+			"wave_number": 2,
+			"wave_delay": 15,
+			"enemies": [
+				{
+					"type": "Orc",
+					"count": 8,
+					"spawn_delay": 1.5
+				},
+				{
+					"type": "Mage",
+					"count": 1,
+					"spawn_delay": 4.0
+				},
+				{
+					"type": "Orc",
+					"count": 4,
+					"spawn_delay": 1.5
+				}
+			],
+			"weapons": [
+				{
+					"type": "Default_Sword",
+					"spawn_delay": 0,
+					"Uses": 10
+				},
+				{
+					"type": "Fire_Sword",
+					"spawn_delay": 3,
+					"Uses": 6
+				}
+			]
+		}
+	],
+	"waves_count": 2
+}

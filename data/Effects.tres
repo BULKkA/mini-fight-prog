@@ -1,0 +1,35 @@
+[gd_resource type="JSON" format=3 uid="uid://r2t5hsgwdxew"]
+
+[resource]
+data = {
+"EXPLOSION": {
+"DamagePerTick": 0,
+"Duration": 0.0,
+"SlowPercent": 0.0,
+"TickTime": 0.0
+},
+"FIRE": {
+"DamagePerTick": 3,
+"Duration": 2.5,
+"SlowPercent": 0.0,
+"TickTime": 0.5
+},
+"FREEZE": {
+"DamagePerTick": 0,
+"Duration": 2.0,
+"SlowPercent": 0.5,
+"TickTime": 0.0
+},
+"NONE": {
+"DamagePerTick": 0,
+"Duration": 0.0,
+"SlowPercent": 0.0,
+"TickTime": 0.0
+},
+"POISON": {
+"DamagePerTick": 2,
+"Duration": 4.0,
+"SlowPercent": 0.0,
+"TickTime": 1.0
+}
+}

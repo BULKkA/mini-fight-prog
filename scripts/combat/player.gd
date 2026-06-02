@@ -6,7 +6,6 @@ const KNOCKBACK_DECAY := 900.0			# насколько быстро гаснет 
 
 @onready var PlayerAnim: AnimatedSprite2D = $PlayerAnim
 @onready var AnimPlayer: AnimationPlayer = $AnimationPlayer
-@onready var HealthBar = $HealthBar 
 @onready var Inventory = $Inventory
 @export var heaviness: float = 3.0
 @export var SPEED := 100.0
@@ -31,7 +30,7 @@ var Max_Helth = 100
 var current_health: int: 
 	set(value):
 		current_health = value
-		HealthBar.update_hearts(current_health)
+		GlobalVar.SetHealth.emit(current_health)
 var is_dead := false
 
 var speed := SPEED
@@ -44,7 +43,7 @@ var dash_velocity: Vector2 = Vector2.DOWN
 #var stun := false 
 
 func _ready():
-	HealthBar.create_hearts(Max_Helth)
+	GlobalVar.SetHealth.emit(Max_Helth)
 	current_health = Max_Helth
 	ConnectSignals()
 

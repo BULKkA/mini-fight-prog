@@ -11,6 +11,10 @@ var currentWeapon:
 			currentWeapon.activate()
 
 @onready var Inventory = $Inventory
+@onready var WavePanel = $WavePanel
+@onready var HealthBar = $Stats/HealthBar
+@onready var StaminaBar = $Stats/StaminaBar
+@onready var UIAnimator = $UIAnimator
 
 func _ready() -> void:
 	ConnectSignals()
@@ -20,6 +24,9 @@ func ConnectSignals():
 	GlobalVar.RemoveWeapon.connect(remove_weapon)
 	GlobalVar.SelectWeapon.connect(select_weapon)
 	GlobalVar.PlayerAttack.connect(player_attack)
+	GlobalVar.NextWave.connect(next_wave)
+	GlobalVar.SetHealth.connect(set_health)
+	GlobalVar.SetStamina.connect(set_stamina)
 
 func add_weapon(weapon):
 	var New_Weapon = weapon_card_scene.instantiate()
@@ -46,3 +53,14 @@ func select_weapon(weapon):
 func player_attack(weapon, data):
 	weapons[weapon].SetData(data)
 	
+
+func next_wave(wave):
+	var wave_label = WavePanel.get_node("WaveLabel")
+	wave_label.text = "Wave: %d" % wave.wave_number
+	UIAnimator.play("WaveStart")
+	
+func set_health(health):
+	HealthBar.value = health
+
+func set_stamina(stamina):
+	StaminaBar.value = stamina

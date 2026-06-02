@@ -9,7 +9,7 @@ data = [{
 }, {
 "id": 1,
 "level_data": "res://data/levels/level_01_data.tres",
-"link": "res://data/levels/level_01.tscn",
+"link": "res://scenes/arena/01_Level.tscn",
 "name": "Уровень 1"
 }, {
 "id": 2,

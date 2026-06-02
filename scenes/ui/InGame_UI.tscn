@@ -2,6 +2,22 @@
 
 [ext_resource type="Script" uid="uid://q6qhmxooesbj" path="res://scripts/ui/in_game_ui.gd" id="1_gw2qc"]
 
+[sub_resource type="Animation" id="Animation_x41o1"]
+resource_name = "WaveStart"
+length = 2.0000033
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gw2qc"]
+_data = {
+&"WaveStart": SubResource("Animation_x41o1")
+}
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_x41o1"]
+load_path = "res://.godot/imported/freefantasy.png-1a835abc20efd453b019f8845b6523c0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gw2qc"]
+atlas = SubResource("CompressedTexture2D_x41o1")
+region = Rect2(5.1887054, 1.1888752, 68.51118, 24.728888)
+
 [node name="InGameUi" type="Control" unique_id=1628850726]
 layout_mode = 3
 anchors_preset = 15
@@ -44,3 +60,30 @@ size_flags_horizontal = 3
 [node name="Control" type="Control" parent="Inventory" unique_id=980790123]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="WavePanel" type="PanelContainer" parent="." unique_id=771723670]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+
+[node name="WaveLabel" type="Label" parent="WavePanel" unique_id=578322215]
+layout_mode = 2
+
+[node name="UIAnimator" type="AnimationPlayer" parent="." unique_id=27547910]
+libraries/ = SubResource("AnimationLibrary_gw2qc")
+
+[node name="Stats" type="VBoxContainer" parent="." unique_id=934709830]
+layout_mode = 0
+offset_right = 85.0
+offset_bottom = 85.0
+
+[node name="HealthBar" type="TextureProgressBar" parent="Stats" unique_id=2081191210]
+layout_mode = 2
+texture_under = SubResource("AtlasTexture_gw2qc")
+texture_progress = SubResource("AtlasTexture_gw2qc")
+tint_under = Color(0.6627451, 0.68235296, 0.68235296, 0.36862746)
+
+[node name="StaminaBar" type="TextureProgressBar" parent="Stats" unique_id=1761642965]
+layout_mode = 2

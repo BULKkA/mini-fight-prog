@@ -6,6 +6,7 @@ var Weapon_scene = load("res://scenes/combat/weapon.tscn")
 var Player: CharacterBody2D
 var Enemies: Dictionary = load("res://data/Enemy.tres").data
 var Weapons: Dictionary = load("res://data/Weapons.tres").data
+var Effects_data: Dictionary = load("res://data/Effects.tres").data
 
 enum Effect{
 	NONE,
@@ -15,7 +16,12 @@ enum Effect{
 	EXPLOSION
 }
 
+
+
 signal SelectWeapon(weapon)
 signal AddWeapon(weapon)
 signal RemoveWeapon(weapon)
 signal PlayerAttack(weapon, data)
+signal NextWave(Wave)
+signal SetHealth(health)
+signal SetStamina(stamina)
