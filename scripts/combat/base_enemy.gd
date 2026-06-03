@@ -5,7 +5,16 @@ enum State {
 	CHASE,		
 	ATTACK
 }
-
+enum Direction{
+	UP,
+	UP_LEFT,
+	UP_RIGHT,
+	DOWN,
+	DOWN_LEFT,
+	DOWN_RIGHT,
+	LEFT,
+	RIGHT
+}
 const MIN_MOVE_SPEED_SQ := 0.0001
 const KNOCKBACK_DECAY := 2000.0
 
@@ -25,7 +34,7 @@ var current_health: int:
 var knockback_velocity: Vector2 = Vector2.ZERO
 var movement_velocity: Vector2 = Vector2.ZERO	# только AI-движение, без knockback
 var is_attacking := false
-var facing_dir: Vector2 = Vector2.RIGHT
+var idle_dir: Direction = Direction.RIGHT
 var is_alive: bool = true
 var stun: bool  = false
 var currentAttack
@@ -39,6 +48,9 @@ var CurrentEffects: Array = []
 @onready var HealthBar: TextureProgressBar = $HealthBar
 @onready var EffectBar: VBoxContainer = $EffectBar
 
+func Init_Enemy(EnemyData):
+	GlobalFunc.copy_all_properties(EnemyData, self)
+
 func _ready() -> void:
 	HealthBar.create_hearts(max_health)
 	current_health = max_health
@@ -49,31 +61,23 @@ func _ready() -> void:
 
 	_On_Ready()
 
-func _On_Ready() -> void:
-	pass
-
 func _physics_process(delta: float) -> void:
-	if not is_alive:
+	if not is_alive or is_attacking or stun:
 		return
-	move_and_slide()
-	_update_knockback(delta)
-	if is_attacking or stun:
-		return
-		
+
 	match state:
 		State.CHASE:
 			_chase(delta)
 		State.ATTACK:
 			_attack(delta)
-			
+
+	update_knockback(delta)
 	velocity = movement_velocity + knockback_velocity
-	_set_facing_dir_from_direction(velocity)
+	move_and_slide()
+	_set_idle_dir_from_direction(velocity)
 	_update_animation()
 
-func Init_Enemy(EnemyData):
-	GlobalFunc.copy_all_properties(EnemyData, self)
-
-func _update_knockback(delta: float) -> void:
+func update_knockback(delta: float) -> void:
 	if knockback_velocity == Vector2.ZERO:
 		return
 
@@ -86,22 +90,20 @@ func _update_knockback(delta: float) -> void:
 
 func _update_animation() -> void:
 	if movement_velocity.length_squared() <= MIN_MOVE_SPEED_SQ:
-		_set_animation(&"Idle")
+		_set_animation(&"Idle" + Direction.keys()[idle_dir])
 		return
 
-	facing_dir = Vector2.LEFT if movement_velocity.x < 0.0 else Vector2.RIGHT
-	animated_sprite.flip_h = facing_dir == Vector2.LEFT
-	_set_animation(&"Walk")
+	_set_animation(&"Walk" + Direction.keys()[idle_dir])
 
-func _set_animation(animation_name: StringName) -> void:
-	if animated_sprite.animation == animation_name:
-		return
-	animated_sprite.flip_h = facing_dir == Vector2.LEFT
-	animated_sprite.play(animation_name)
-
-func _set_facing_dir_from_direction(direction: Vector2) -> void:
-	if direction.x != 0:
-		facing_dir = Vector2.LEFT if direction.x < 0.0 else Vector2.RIGHT
+func _set_idle_dir_from_direction(direction: Vector2) -> void:
+	if direction.y < 0:
+		idle_dir = Direction.UP
+	elif direction.y > 0:
+		idle_dir = Direction.DOWN
+	elif direction.x < 0:
+		idle_dir = Direction.LEFT
+	elif direction.x > 0:
+		idle_dir = Direction.RIGHT
 
 func _chase(delta: float) -> void:
 	if not target:
@@ -115,7 +117,6 @@ func _chase(delta: float) -> void:
 	if to_next.length_squared() > MIN_MOVE_SPEED_SQ:
 		var dir: Vector2 = to_next.normalized()
 		movement_velocity = dir * speed
-		_update_facing_from_direction(dir)
 	else:
 		movement_velocity = Vector2.ZERO
 
@@ -133,12 +134,6 @@ func _attack(delta: float) -> void:
 		await _perform_attack()
 		is_attacking = false
 
-func _perform_attack() -> void:
-	pass
-
-func _update_facing_from_direction(dir: Vector2) -> void:
-	facing_dir = Vector2.LEFT if dir.x < 0.0 else Vector2.RIGHT
-
 func set_state(new_state: State) -> void:
 	if new_state == state:
 		return
@@ -146,12 +141,6 @@ func set_state(new_state: State) -> void:
 	_on_state_exit(state)
 	state = new_state
 	_on_state_enter(state)
-
-func _on_state_enter(new_state: State) -> void:
-	pass
-
-func _on_state_exit(old_state: State) -> void:
-	pass
 
 func take_hit(amount: int, knockback: Dictionary = {}, Effect = GlobalVar.Effect.NONE) -> void: 
 	if not is_alive:
@@ -178,12 +167,6 @@ func take_hit(amount: int, knockback: Dictionary = {}, Effect = GlobalVar.Effect
 		await animated_sprite.animation_finished
 		stun = false
 
-func _Take_Effect(Effect):
-	pass
-
-func _on_take_damage(amount: int) -> void:
-	pass
-
 func die() -> void:
 	is_alive = false 
 	_on_die()
@@ -193,20 +176,11 @@ func die() -> void:
 	await get_tree().create_timer(3).timeout
 	queue_free()
 
-func _on_die():
-	pass
-
 func attackBody(body):
-	var dir := Vector2.ZERO
-	match facing_dir:
-		Vector2.LEFT:
-			dir = Vector2(-1, 0)
-		Vector2.RIGHT:
-			dir = Vector2(1, 0)
-
+	var direction = (body.global_position - global_position).normalized()
 	var knockback := {
-		"direction": dir,
-		"strength": 220.0
+		"direction": direction,
+		"strength": currentAttack.Strength
 	}
 	body.take_hit(currentAttack.Damage, knockback, GlobalVar.Effect[currentAttack.Effect])
 
@@ -219,8 +193,37 @@ func clothCollisions():
 			child.monitorable = false
 
 func updateEffectBar():
-	EffectBar.clear()
-	for effect in CurrentEffects:
-		var effect_icon = TextureRect.new()
-		effect_icon.texture = GlobalVar.Weapons[currentAttack.Weapon].EffectIcons[effect]
-		EffectBar.add_child(effect_icon)
+	pass
+	#EffectBar.clear()
+	#for effect in CurrentEffects:
+		#var effect_icon = TextureRect.new()
+		#effect_icon.texture = GlobalVar.Weapons[currentAttack.Weapon].EffectIcons[effect]
+		#EffectBar.add_child(effect_icon)
+
+
+func _On_Ready() -> void:
+	pass
+
+func _on_die():
+	pass
+
+func _on_take_damage(amount: int) -> void:
+	pass
+
+func _Take_Effect(Effect):
+	pass
+
+func _on_state_enter(new_state: State) -> void:
+	pass
+
+func _on_state_exit(old_state: State) -> void:
+	pass
+
+func _perform_attack() -> void:
+	pass
+
+
+func _set_animation(animation_name: StringName) -> void:
+	if animated_sprite.animation == animation_name:
+		return
+	animated_sprite.play(animation_name)

@@ -55,5 +55,22 @@ data = {
 "heaviness": 40,
 "max_health": 50,
 "speed": 50
+},
+"Chest": {
+"Link": "res://scenes/combat/Chest_monstr.tscn",
+"Strength": 0,
+"attackSpeed": 2,
+"attack_range": 30,
+"attacks": [{
+"Damage": 10,
+"Effect": "FIRE",
+"Name": "Attack",
+"Strength": 40,
+"Type": "Magic"
+}],
+"can_be_stunned": false,
+"heaviness": 10,
+"max_health": 50,
+"speed": 40
 }
 }

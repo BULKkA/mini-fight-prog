@@ -21,13 +21,7 @@ func _chase(delta: float) -> void:
 			randf_range(-120, 120)
 		)
 		navigation_agent.target_position = self.global_position + offset
-	var next_point: Vector2 = navigation_agent.get_next_path_position()
-	var dir: Vector2 = (next_point - global_position).normalized()
-	if randf() < 0.05:
-		movement_velocity = Vector2.ZERO
-		return
-	movement_velocity = dir * speed
-	_update_facing_from_direction(dir)
+
 
 func _perform_attack() -> void:
 	if Casts.visible:
