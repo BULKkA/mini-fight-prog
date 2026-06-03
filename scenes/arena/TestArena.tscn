@@ -169,18 +169,6 @@ script = ExtResource("1_vfmkd")
 visible = false
 navigation_polygon = SubResource("NavigationPolygon_5m0rm")
 
-[node name="SpawnPoints" type="Node2D" parent="." unique_id=1021484430]
-position = Vector2(228, 49)
-
-[node name="Node2D" type="Node2D" parent="SpawnPoints" unique_id=1167327610]
-position = Vector2(67, 152)
-
-[node name="Node2D2" type="Node2D" parent="SpawnPoints" unique_id=1187773892]
-position = Vector2(-107, 148)
-
-[node name="Node2D3" type="Node2D" parent="SpawnPoints" unique_id=696358336]
-position = Vector2(75, 64)
-
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1093520153]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1684299554]
@@ -201,3 +189,41 @@ tile_set = SubResource("TileSet_rkn6l")
 [node name="SpawnManager" type="Node2D" parent="." unique_id=1258351104]
 y_sort_enabled = true
 script = ExtResource("2_5m0rm")
+
+[node name="Enemy" type="Node2D" parent="SpawnManager" unique_id=264870076]
+y_sort_enabled = true
+
+[node name="Weapon" type="Node2D" parent="SpawnManager" unique_id=2068581850]
+y_sort_enabled = true
+
+[node name="EnemySpawners" type="Node2D" parent="." unique_id=817612145]
+
+[node name="Node2D" type="Node2D" parent="EnemySpawners" unique_id=12578465]
+position = Vector2(106, 62)
+
+[node name="Node2D2" type="Node2D" parent="EnemySpawners" unique_id=1926509040]
+position = Vector2(386, 62)
+
+[node name="Node2D3" type="Node2D" parent="EnemySpawners" unique_id=14240377]
+position = Vector2(229, 45)
+
+[node name="Node2D4" type="Node2D" parent="EnemySpawners" unique_id=2049205944]
+position = Vector2(277, 47)
+
+[node name="Node2D5" type="Node2D" parent="EnemySpawners" unique_id=1319935633]
+position = Vector2(46, 230)
+
+[node name="Node2D6" type="Node2D" parent="EnemySpawners" unique_id=278091862]
+position = Vector2(433, 235)
+
+[node name="Node2D7" type="Node2D" parent="EnemySpawners" unique_id=1507082287]
+position = Vector2(254, 224)
+
+[node name="WeaponSpawners" type="Node2D" parent="." unique_id=605811312]
+position = Vector2(228, 49)
+
+[node name="Node2D" type="Node2D" parent="WeaponSpawners" unique_id=1487336570]
+position = Vector2(-108, 109)
+
+[node name="Node2D2" type="Node2D" parent="WeaponSpawners" unique_id=2130503507]
+position = Vector2(148, 110)

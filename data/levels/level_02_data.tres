@@ -1,0 +1,94 @@
+[gd_resource type="JSON" format=3 uid="uid://d37ud7jlilrur"]
+
+[resource]
+data = {
+	"player_spawn_position": [200, 200],
+	"test_level": false,
+	"waves": [
+		{
+			"wave_number": 1,
+			"wave_delay": 6,
+			"enemies": [
+				{
+					"type": "Orc",
+					"count": 5,
+					"spawn_delay": 1.2
+				}
+			],
+			"weapons": [
+				{
+					"type": "Default_Sword",
+					"spawn_delay": 0,
+					"Uses": 12
+				},
+				{
+					"type": "Poison_Sword",
+					"spawn_delay": 2.0,
+					"Uses": 8
+				}
+			]
+		},
+		{
+			"wave_number": 2,
+			"wave_delay": 12,
+			"enemies": [
+				{
+					"type": "Orc",
+					"count": 6,
+					"spawn_delay": 1.0
+				},
+				{
+					"type": "Mage",
+					"count": 1,
+					"spawn_delay": 3.5
+				}
+			],
+			"weapons": [
+				{
+					"type": "Fire_Sword",
+					"spawn_delay": 0.5,
+					"Uses": 7
+				},
+				{
+					"type": "Default_Sword",
+					"spawn_delay": 2.5,
+					"Uses": 10
+				}
+			]
+		},
+		{
+			"wave_number": 3,
+			"wave_delay": 18,
+			"enemies": [
+				{
+					"type": "Chest",
+					"count": 1,
+					"spawn_delay": 1.0
+				},
+				{
+					"type": "Orc",
+					"count": 8,
+					"spawn_delay": 1.2
+				},
+				{
+					"type": "Mage",
+					"count": 2,
+					"spawn_delay": 4.0
+				}
+			],
+			"weapons": [
+				{
+					"type": "Ise_Sword",
+					"spawn_delay": 0,
+					"Uses": 6
+				},
+				{
+					"type": "Fly_Sword",
+					"spawn_delay": 2.5,
+					"Uses": 5
+				}
+			]
+		}
+	],
+	"waves_count": 3
+}

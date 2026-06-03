@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://bsjv0pnchxmiu"]
 
+[ext_resource type="Script" uid="uid://c5okn0qn3p3m" path="res://scripts/levels/Level.gd" id="1_ds4ky"]
 [ext_resource type="Script" uid="uid://drm1umr5m2ia" path="res://scripts/global/SpawnManager.gd" id="1_wmhvx"]
 [ext_resource type="Texture2D" uid="uid://dm7g1gqa4fynb" path="res://art/tilemaps/dungeon.png" id="2_nrp6w"]
 [ext_resource type="TileSet" uid="uid://d05xcpwdj6tfi" path="res://art/tilemaps/Dungein)Objects_01.tres" id="3_rjtdf"]
@@ -581,6 +582,7 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_rjtdf")
 
 [node name="02_level" type="Node2D" unique_id=543972335]
+script = ExtResource("1_ds4ky")
 
 [node name="SpawnManager" type="Node2D" parent="." unique_id=1071775844]
 y_sort_enabled = true
@@ -597,16 +599,16 @@ navigation_polygon = SubResource("NavigationPolygon_nrp6w")
 [node name="EnemySpawners" type="Node2D" parent="." unique_id=1535244986]
 
 [node name="Node2D" type="Node2D" parent="EnemySpawners" unique_id=1832739964]
-position = Vector2(106, 62)
+position = Vector2(92, 41)
 
 [node name="Node2D2" type="Node2D" parent="EnemySpawners" unique_id=1627465798]
-position = Vector2(386, 62)
+position = Vector2(354, 38)
 
 [node name="Node2D3" type="Node2D" parent="EnemySpawners" unique_id=599198647]
-position = Vector2(229, 45)
+position = Vector2(237, 38)
 
 [node name="Node2D4" type="Node2D" parent="EnemySpawners" unique_id=219785499]
-position = Vector2(277, 47)
+position = Vector2(419, 185)
 
 [node name="Node2D5" type="Node2D" parent="EnemySpawners" unique_id=70181963]
 position = Vector2(46, 230)
@@ -618,13 +620,13 @@ position = Vector2(433, 235)
 position = Vector2(254, 224)
 
 [node name="WeaponSpawners" type="Node2D" parent="." unique_id=222908184]
-position = Vector2(228, 49)
+position = Vector2(279, 35)
 
 [node name="Node2D" type="Node2D" parent="WeaponSpawners" unique_id=84410366]
-position = Vector2(-108, 109)
+position = Vector2(-166, 125)
 
 [node name="Node2D2" type="Node2D" parent="WeaponSpawners" unique_id=1958101708]
-position = Vector2(148, 110)
+position = Vector2(137, 108)
 
 [node name="Земля" type="TileMapLayer" parent="." unique_id=655294639]
 z_index = -1

@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://wdr4tf0btnqa" path="res://art/animations/Dungeon_Monsters1.png" id="1_kusly"]
 [ext_resource type="Script" uid="uid://nvuhrdggkl10" path="res://scripts/combat/chest_monstr.gd" id="1_y1q5e"]
 [ext_resource type="Script" uid="uid://cywrwj2s0jr1w" path="res://scripts/ui/health_bar.gd" id="2_y1q5e"]
+[ext_resource type="Texture2D" uid="uid://r66rtwbwdffl" path="res://art/sprites/effects/All_Fire_Bullet_Pixel_16x16_04.png" id="4_i6txw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i6txw"]
 atlas = ExtResource("1_kusly")
@@ -238,16 +239,288 @@ height = 8.0
 radius = 8.0
 height = 16.0
 
-[sub_resource type="Animation" id="Animation_y1q5e"]
+[sub_resource type="Animation" id="Animation_luoye"]
+resource_name = "Attack_DOWN"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Огонь:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Огонь/Area2D/CollisionPolygon2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Огонь:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1000000, 1),
+"update": 0,
+"values": [1.5707963267948966, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_vuhno"]
+resource_name = "Attack_LEFT"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Огонь:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Огонь/Area2D/CollisionPolygon2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Огонь:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1000000, 1),
+"update": 0,
+"values": [-3.1415927, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_d3jh8"]
+resource_name = "Attack_RIGHT"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Огонь:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Огонь/Area2D/CollisionPolygon2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Огонь:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_l2dxg"]
 resource_name = "Attack_UP"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Огонь:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Огонь/Area2D/CollisionPolygon2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Огонь:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1000000, 1),
+"update": 0,
+"values": [-1.5707964, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_i6txw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Огонь:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Огонь/Area2D/CollisionPolygon2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Огонь:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gcobm"]
 _data = {
-&"Attack_UP": SubResource("Animation_y1q5e")
+&"Attack_DOWN": SubResource("Animation_luoye"),
+&"Attack_LEFT": SubResource("Animation_vuhno"),
+&"Attack_RIGHT": SubResource("Animation_d3jh8"),
+&"Attack_UP": SubResource("Animation_l2dxg"),
+&"RESET": SubResource("Animation_i6txw")
 }
 
 [sub_resource type="ExternalTexture" id="ExternalTexture_m71sg"]
 size = Vector2(16, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nrdcc"]
+atlas = ExtResource("4_i6txw")
+region = Rect2(96, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uq40e"]
+atlas = ExtResource("4_i6txw")
+region = Rect2(112, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yssj6"]
+atlas = ExtResource("4_i6txw")
+region = Rect2(128, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gcobm"]
+atlas = ExtResource("4_i6txw")
+region = Rect2(144, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m71sg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nrdcc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uq40e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yssj6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gcobm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7b0pd"]
+atlas = ExtResource("4_i6txw")
+region = Rect2(96, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5hcb"]
+atlas = ExtResource("4_i6txw")
+region = Rect2(112, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eubam"]
+atlas = ExtResource("4_i6txw")
+region = Rect2(128, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qc4tc"]
+atlas = ExtResource("4_i6txw")
+region = Rect2(144, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_didak"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7b0pd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5hcb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eubam")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qc4tc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=789529876]
 script = ExtResource("1_y1q5e")
@@ -255,7 +528,7 @@ script = ExtResource("1_y1q5e")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=373665816]
 position = Vector2(0, -14)
 sprite_frames = SubResource("SpriteFrames_nrdcc")
-animation = &"Walk_UP"
+animation = &"Attack_LEFT"
 autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=21788181]
@@ -294,3 +567,36 @@ texture_progress = SubResource("ExternalTexture_m71sg")
 tint_under = Color(0, 0, 0, 0.9019608)
 tint_progress = Color(1, 0, 0, 1)
 script = ExtResource("2_y1q5e")
+
+[node name="Огонь" type="Node2D" parent="." unique_id=1252860312]
+visible = false
+position = Vector2(0, -7)
+
+[node name="Огонь1" type="AnimatedSprite2D" parent="Огонь" unique_id=1650048456]
+position = Vector2(15, -1)
+sprite_frames = SubResource("SpriteFrames_m71sg")
+autoplay = "default"
+frame_progress = 0.55973613
+
+[node name="Огонь2" type="AnimatedSprite2D" parent="Огонь" unique_id=1475450282]
+position = Vector2(31, -1)
+sprite_frames = SubResource("SpriteFrames_didak")
+autoplay = "default"
+frame_progress = 0.88985246
+
+[node name="Огонь3" type="AnimatedSprite2D" parent="Огонь" unique_id=70831370]
+position = Vector2(47, -1)
+sprite_frames = SubResource("SpriteFrames_didak")
+autoplay = "default"
+frame_progress = 0.76658773
+
+[node name="Area2D" type="Area2D" parent="Огонь" unique_id=1256515715]
+position = Vector2(0, 7)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Огонь/Area2D" unique_id=1643014913]
+polygon = PackedVector2Array(7.0000005, -4, 10, -2, 55, -2, 55, -12, 10, -12, 7.0000005, -10)
+disabled = true
+
+[connection signal="area_entered" from="Огонь/Area2D" to="." method="_on_area_2d_area_entered"]

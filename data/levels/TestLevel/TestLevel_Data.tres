@@ -9,8 +9,8 @@ data = {
 			"wave_delay": 30,
 			"enemies": [
 				{
-					"spawn_delay": 2,
-					"type": "Mage",
+					"spawn_delay": 0,
+					"type": "Chest",
 					"count": 1
 				}
 			],

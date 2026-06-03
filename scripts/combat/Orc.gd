@@ -13,7 +13,7 @@ func _perform_attack() -> void:
 	_play_attack_animation(currentAttack.Name)
 	await get_tree().create_timer(0.5).timeout
 
-func _set_facing_dir_from_direction(direction: Vector2) -> void:
+func _set_idle_dir_from_direction(direction: Vector2) -> void:
 	if direction.x != 0:
 		idle_dir = Direction.LEFT if direction.x < 0.0 else Direction.RIGHT
 
@@ -21,15 +21,8 @@ func _update_animation() -> void:
 	if movement_velocity.length_squared() <= MIN_MOVE_SPEED_SQ:
 		_set_animation(&"Idle")
 		return
-	_set_animation(&"Walk")
-
-func _set_animation(animation_name: StringName) -> void:
-	if animated_sprite.animation == animation_name:
-		return
-	
 	animated_sprite.flip_h = idle_dir == Direction.LEFT
-	animated_sprite.play(animation_name)
-
+	_set_animation(&"Walk")
 
 func _play_attack_animation(AttackType) -> void:
 	if not is_alive:

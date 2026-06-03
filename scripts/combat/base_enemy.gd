@@ -90,20 +90,17 @@ func update_knockback(delta: float) -> void:
 
 func _update_animation() -> void:
 	if movement_velocity.length_squared() <= MIN_MOVE_SPEED_SQ:
-		_set_animation(&"Idle" + Direction.keys()[idle_dir])
+		_set_animation(&"Idle_" + Direction.keys()[idle_dir])
 		return
 
-	_set_animation(&"Walk" + Direction.keys()[idle_dir])
+	_set_animation(&"Walk_" + Direction.keys()[idle_dir])
 
 func _set_idle_dir_from_direction(direction: Vector2) -> void:
-	if direction.y < 0:
-		idle_dir = Direction.UP
-	elif direction.y > 0:
-		idle_dir = Direction.DOWN
-	elif direction.x < 0:
-		idle_dir = Direction.LEFT
-	elif direction.x > 0:
-		idle_dir = Direction.RIGHT
+	if abs(direction.x) > abs(direction.y):
+		idle_dir = Direction.LEFT if direction.x < 0 else Direction.RIGHT
+	else:
+		idle_dir = Direction.UP if direction.y < 0 else Direction.DOWN
+	
 
 func _chase(delta: float) -> void:
 	if not target:

@@ -14,7 +14,7 @@ data = [{
 }, {
 "id": 2,
 "level_data": "res://data/levels/level_02_data.tres",
-"link": "res://data/levels/level_02.tscn",
+"link": "res://scenes/arena/02_level.tscn",
 "name": "Уровень 2"
 }, {
 "id": 3,
