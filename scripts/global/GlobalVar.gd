@@ -6,9 +6,11 @@ var Weapon_scene = load("res://scenes/combat/weapon.tscn")
 var Player: CharacterBody2D
 var Enemies: Dictionary = load("res://data/Enemy.tres").data
 var Weapons: Dictionary = load("res://data/Weapons.tres").data
-var Effects_data: Dictionary = load("res://data/Effects.tres").data
 
+var Effects_data: Dictionary = load("res://data/Effects.tres").data
 var Effect_scene = load("res://scenes/ui/effect.tscn")
+var Effect_connect: Dictionary = load("res://data/Effect_connect.tres").data
+var Effect_connect_data: Dictionary = load("res://data/Effect_connect_data.tres").data
 
 enum Effect{
 	NONE, 
@@ -18,7 +20,7 @@ enum Effect{
 }
 
 signal NextWave(Wave)
-signal LevelFinish(Level_Id)
+signal LevelFinish()
 
 signal SelectWeapon(weapon)
 signal AddWeapon(weapon)

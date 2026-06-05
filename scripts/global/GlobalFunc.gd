@@ -12,3 +12,14 @@ func copy_all_properties(data, obj):
 	for key in data:
 		if key in props:
 			obj.set(key, data[key])
+
+
+func combine_effects(Effect1, Effect2):
+	if Effect1 == GlobalVar.Effect.NONE:
+		return Effect2
+	if Effect2 == GlobalVar.Effect.NONE:
+		return Effect1
+	var key = GlobalVar.Effect.keys()[Effect1] + "+" + GlobalVar.Effect.keys()[Effect2]
+	if key in GlobalVar.Effect_connect:
+		return GlobalVar.Effect[GlobalVar.Effect_connect[key]]
+	return GlobalVar.Effect.NONE

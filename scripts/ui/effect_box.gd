@@ -1,17 +1,18 @@
 extends HBoxContainer
 
-var Effects: Array
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
+var Effects: Dictionary = {}
 
 func add_effect(Effect):
-	pass
+	var effect_instance = GlobalVar.Effect_scene.instantiate()
+	effect_instance.set_sprite(Effect)
+	Effects[effect_instance] = effect_instance
+	add_child(effect_instance)
 
 func delete_effect(Effect):
-	pass
-	
+	Effects[Effect].queue_free()
+	Effects.erase(Effect)
+
 func delete_all_effects():
-	pass
+	for effect in Effects.values():
+		effect.queue_free()
+	Effects.clear()

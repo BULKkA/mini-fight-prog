@@ -1,15 +1,11 @@
-# Settings.gd
 extends Node
 
 signal settings_loaded
 signal settings_saved
 signal setting_changed(setting_name, value)
+# сигналы на будещее сейчас их никто не ловит 
 
 const SETTINGS_FILE := "user://settings.cfg"
-
-# =========================
-# НАСТРОЙКИ
-# =========================
 
 var music_volume: float = 1.0
 var sfx_volume: float = 1.0
@@ -19,16 +15,8 @@ var vsync: bool = true
 
 var resolution: Vector2i = Vector2i(1920, 1080)
 
-# =========================
-# ИНИЦИАЛИЗАЦИЯ
-# =========================
-
 func _ready() -> void:
 	load_settings()
-
-# =========================
-# СОХРАНЕНИЕ / ЗАГРУЗКА
-# =========================
 
 func save_settings() -> void:
 	var cfg := ConfigFile.new()
@@ -70,20 +58,12 @@ func load_settings() -> void:
 
 	settings_loaded.emit()
 
-# =========================
-# ПРИМЕНЕНИЕ
-# =========================
-
 func apply_settings() -> void:
 	_apply_music_volume()
 	_apply_sfx_volume()
 	_apply_fullscreen()
 	_apply_vsync()
 	_apply_resolution()
-
-# =========================
-# МУЗЫКА
-# =========================
 
 func set_music_volume(value: float) -> void:
 	music_volume = clampf(value, 0.0, 1.0)
@@ -103,10 +83,6 @@ func _apply_music_volume() -> void:
 		linear_to_db(max(music_volume, 0.0001))
 	)
 
-# =========================
-# ЗВУКИ
-# =========================
-
 func set_sfx_volume(value: float) -> void:
 	sfx_volume = clampf(value, 0.0, 1.0)
 	_apply_sfx_volume()
@@ -125,10 +101,6 @@ func _apply_sfx_volume() -> void:
 		linear_to_db(max(sfx_volume, 0.0001))
 	)
 
-# =========================
-# ПОЛНОЭКРАННЫЙ РЕЖИМ
-# =========================
-
 func set_fullscreen(enabled: bool) -> void:
 	fullscreen = enabled
 	_apply_fullscreen()
@@ -146,10 +118,6 @@ func _apply_fullscreen() -> void:
 			DisplayServer.WINDOW_MODE_WINDOWED
 		)
 
-# =========================
-# VSYNC
-# =========================
-
 func set_vsync(enabled: bool) -> void:
 	vsync = enabled
 	_apply_vsync()
@@ -164,10 +132,6 @@ func _apply_vsync() -> void:
 		else DisplayServer.VSYNC_DISABLED
 	)
 
-# =========================
-# РАЗРЕШЕНИЕ
-# =========================
-
 func set_resolution(size: Vector2i) -> void:
 	resolution = size
 	_apply_resolution()
@@ -177,10 +141,6 @@ func set_resolution(size: Vector2i) -> void:
 
 func _apply_resolution() -> void:
 	DisplayServer.window_set_size(resolution)
-
-# =========================
-# СБРОС
-# =========================
 
 func reset_to_defaults() -> void:
 	music_volume = 1.0

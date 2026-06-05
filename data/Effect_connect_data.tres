@@ -1,0 +1,23 @@
+[gd_resource type="JSON" format=3 uid="uid://b3nr02yhxptq0"]
+
+[resource]
+data = {
+"EXPLOSION": {
+"DamagePerTick": 20,
+"Duration": 0.1,
+"SlowPercent": 0.5,
+"TickTime": 0.1
+},
+"STEAM": {
+"DamagePerTick": 1,
+"Duration": 3,
+"SlowPercent": 0.2,
+"TickTime": 0.5
+},
+"TOXIC_ICE": {
+"DamagePerTick": 2,
+"Duration": 6,
+"SlowPercent": 0.3,
+"TickTime": 1
+}
+}

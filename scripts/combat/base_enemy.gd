@@ -39,8 +39,8 @@ var is_alive: bool = true
 var stun: bool  = false
 var currentAttack
 var can_be_stunned: bool = true
-
-var CurrentEffects: Array = []
+var current_combined_effect = null
+var CurrentEffects: Dictionary = {}
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var AnimPlayer: AnimationPlayer = $AnimationPlayer
@@ -154,7 +154,7 @@ func take_hit(amount: int, knockback: Dictionary = {}, Effect = GlobalVar.Effect
 		if dir != Vector2.ZERO and strength > 0.0:
 			knockback_velocity += dir.normalized() * (strength / safe_heaviness)
 	
-	_Take_Effect(Effect)
+	Take_Effect(Effect)
 	
 	if current_health <= 0:
 		die()
@@ -163,6 +163,55 @@ func take_hit(amount: int, knockback: Dictionary = {}, Effect = GlobalVar.Effect
 		_set_animation("Hurt")
 		await animated_sprite.animation_finished
 		stun = false
+
+func Take_Effect(Effect):
+	if Effect == GlobalVar.Effect.NONE or current_combined_effect != null:
+		return
+	
+	var effect_data = GlobalVar.effect_data[Effect]
+	var find_effect = CurrentEffects.find(Effect)
+
+	if find_effect != -1 :
+		CurrentEffects[Effect].Duration = effect_data.Duration
+		return
+
+	EffectBar.add_effect(Effect)
+	CurrentEffects[Effect] = effect_data
+
+	_on_take_effect(effect_data)
+
+	if CurrentEffects.size() > 1:
+		effect_connection(CurrentEffects)
+
+	await effect_process(Effect, effect_data)
+	
+	EffectBar.delete_effect(Effect)
+	CurrentEffects.erase(Effect)
+
+func effect_process(Effect, effect_data):
+	var elapsed := 0.0
+	speed *= (1.0 - effect_data.SlowPercent)
+	while CurrentEffects.has(Effect):
+		if effect_data.DamagePerTick > 0:
+			take_hit(effect_data.DamagePerTick, {}, GlobalVar.Effect.NONE)
+		await get_tree().create_timer(effect_data.TickTime).timeout
+		
+		CurrentEffects[Effect].Duration -= effect_data.TickTime
+
+		if CurrentEffects[Effect].Duration <= 0:
+			break
+
+	speed /= (1.0 - effect_data.SlowPercent)
+
+func effect_connection(CurrentEffects)
+	current_combined_effect = GlobalFunc.combine_effects(CurrentEffects[0], CurrentEffects[1])
+	effect_data = GlobalVar.Effect_connect_data[current_combined_effect]
+	CurrentEffects[current_combined_effect] = effect_data
+	if effect_data:
+		await effect_process(current_combined_effect, effect_data)
+		current_combined_effect = null
+		CurrentEffects.erase(current_combined_effect)
+
 
 func die() -> void:
 	is_alive = false 
@@ -189,13 +238,8 @@ func clothCollisions():
 		if child is Area2D:
 			child.monitorable = false
 
-func updateEffectBar():
-	pass
-	#EffectBar.clear()
-	#for effect in CurrentEffects:
-		#var effect_icon = TextureRect.new()
-		#effect_icon.texture = GlobalVar.Weapons[currentAttack.Weapon].EffectIcons[effect]
-		#EffectBar.add_child(effect_icon)
+
+
 
 
 func _On_Ready() -> void:
@@ -207,7 +251,7 @@ func _on_die():
 func _on_take_damage(amount: int) -> void:
 	pass
 
-func _Take_Effect(Effect):
+func _on_take_effect(Effect) -> void:
 	pass
 
 func _on_state_enter(new_state: State) -> void:

@@ -2,12 +2,6 @@
 
 [resource]
 data = {
-"EXPLOSION": {
-"DamagePerTick": 0,
-"Duration": 0.0,
-"SlowPercent": 0.0,
-"TickTime": 0.0
-},
 "FIRE": {
 "DamagePerTick": 3,
 "Duration": 2.5,

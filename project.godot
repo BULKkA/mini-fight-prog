@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GlobalVar="*uid://bbsdlw126tddi"
 GlobalFunc="*uid://b8topi15fs23v"
+LevelManager="*uid://lefwswb8m7l4"
 
 [display]
 

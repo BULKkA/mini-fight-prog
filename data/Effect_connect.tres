@@ -1,0 +1,8 @@
+[gd_resource type="JSON" format=3 uid="uid://c2ksvht3ts8ok"]
+
+[resource]
+data = {
+"FIRE+FREEZE": "STEAM",
+"FIRE+POISON": "EXPLOSION",
+"FREEZE+POISON": "TOXIC_ICE"
+}
