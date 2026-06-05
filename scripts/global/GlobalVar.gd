@@ -8,12 +8,13 @@ var Enemies: Dictionary = load("res://data/Enemy.tres").data
 var Weapons: Dictionary = load("res://data/Weapons.tres").data
 var Effects_data: Dictionary = load("res://data/Effects.tres").data
 
+var Effect_scene = load("res://scenes/ui/effect.tscn")
+
 enum Effect{
-	NONE,
+	NONE, 
 	FIRE,
 	FREEZE,
-	POISON,
-	EXPLOSION
+	POISON
 }
 
 signal NextWave(Wave)

@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://dsi8k4ki60v7j"]
+
+[ext_resource type="Script" uid="uid://ce0yfte3ct7ta" path="res://scripts/ui/effect.gd" id="1_e6gab"]
+[ext_resource type="Texture2D" uid="uid://cylaxlhfuq5kk" path="res://art/sprites/effects/effects.png" id="1_x8gf0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6gab"]
+atlas = ExtResource("1_x8gf0")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_71wqd"]
+atlas = ExtResource("1_x8gf0")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_llaej"]
+atlas = ExtResource("1_x8gf0")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3mhik"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e6gab")
+}],
+"loop": true,
+"name": &"FIRE",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_71wqd")
+}],
+"loop": true,
+"name": &"FREEZE",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_llaej")
+}],
+"loop": true,
+"name": &"POISON",
+"speed": 5.0
+}]
+
+[node name="Effect" type="Control" unique_id=675221616]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e6gab")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1176223057]
+sprite_frames = SubResource("SpriteFrames_3mhik")
+animation = &"FIRE"

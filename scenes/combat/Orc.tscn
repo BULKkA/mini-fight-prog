@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b8j2opyt2klpe" path="res://scripts/combat/Orc.gd" id="1_ra3pw"]
 [ext_resource type="Texture2D" uid="uid://dlpij004otj2o" path="res://art/animations/Orc.png" id="2_xbwx8"]
 [ext_resource type="Script" uid="uid://cywrwj2s0jr1w" path="res://scripts/ui/health_bar.gd" id="3_oicaf"]
+[ext_resource type="Script" uid="uid://d3dnrpjrrgdih" path="res://scripts/ui/effect_box.gd" id="4_xbwx8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wkbog"]
 atlas = ExtResource("2_xbwx8")
@@ -409,7 +410,7 @@ libraries/ = SubResource("AnimationLibrary_tg8yk")
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = -8.0
-offset_top = -17.0
+offset_top = -18.0
 offset_right = 8.0
 offset_bottom = -16.0
 grow_horizontal = 2
@@ -419,6 +420,20 @@ texture_progress = SubResource("ExternalTexture_ckr1l")
 tint_under = Color(0, 0, 0, 0.9019608)
 tint_progress = Color(1, 0, 0, 1)
 script = ExtResource("3_oicaf")
+
+[node name="EffectBox" type="HBoxContainer" parent="." unique_id=796329532]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -21.0
+offset_right = 6.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("4_xbwx8")
 
 [connection signal="area_entered" from="Attack_Light" to="." method="_on_attack_light_area_entered"]
 [connection signal="area_entered" from="Attack_Hight" to="." method="_on_attack_hight_area_entered"]
