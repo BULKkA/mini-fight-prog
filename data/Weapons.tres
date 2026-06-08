@@ -6,30 +6,35 @@ data = {
 "Name" : "Default_Sword",
 "Damage": 15,
 "Effect": "NONE",
-"Strength": 70
+"Strength": 70,
+"Default_Uses" : 10
 },
 "Fire_Sword": {
 "Name" : "Fire_Sword",
 "Damage": 20,
 "Effect": "FIRE",
-"Strength": 60
+"Strength": 60,
+"Default_Uses" : 10
 },
 "Fly_Sword": {
 "Name" : "Fly_Sword",
 "Damage": 15,
 "Effect": "NONE",
-"Strength": 200
+"Strength": 200,
+"Default_Uses" : 10
 },
 "Ise_Sword": {
 "Name" : "Ise_Sword",
 "Damage": 20,
 "Effect": "FREEZE",
-"Strength": 50
+"Strength": 50,
+"Default_Uses" : 10
 },
 "Poison_Sword": {
 "Name" : "Poison_Sword",
 "Damage": 13,
 "Effect": "POISON",
-"Strength": 30
+"Strength": 30,
+"Default_Uses" : 10
 }
 }
