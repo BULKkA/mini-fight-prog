@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://nvuhrdggkl10" path="res://scripts/combat/chest_monstr.gd" id="1_y1q5e"]
 [ext_resource type="Script" uid="uid://cywrwj2s0jr1w" path="res://scripts/ui/health_bar.gd" id="2_y1q5e"]
 [ext_resource type="Texture2D" uid="uid://r66rtwbwdffl" path="res://art/sprites/effects/All_Fire_Bullet_Pixel_16x16_04.png" id="4_i6txw"]
+[ext_resource type="Script" uid="uid://d3dnrpjrrgdih" path="res://scripts/ui/effect_box.gd" id="5_d3jh8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i6txw"]
 atlas = ExtResource("1_kusly")
@@ -36,6 +37,18 @@ region = Rect2(264, 128, 24, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_c6cwa"]
 atlas = ExtResource("1_kusly")
 region = Rect2(264, 128, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m71sg"]
+atlas = ExtResource("1_kusly")
+region = Rect2(240, 160, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_didak"]
+atlas = ExtResource("1_kusly")
+region = Rect2(240, 192, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_exvmq"]
+atlas = ExtResource("1_kusly")
+region = Rect2(240, 224, 24, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rf2yg"]
 atlas = ExtResource("1_kusly")
@@ -159,8 +172,32 @@ animations = [{
 "texture": SubResource("AtlasTexture_c6cwa")
 }],
 "loop": true,
-"name": &"Idle",
+"name": &"Idle_DOWN",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m71sg")
+}],
+"loop": true,
+"name": &"Idle_LEFT",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_didak")
+}],
+"loop": true,
+"name": &"Idle_RIGHT",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_exvmq")
+}],
+"loop": true,
+"name": &"Idle_UP",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -528,8 +565,8 @@ script = ExtResource("1_y1q5e")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=373665816]
 position = Vector2(0, -14)
 sprite_frames = SubResource("SpriteFrames_nrdcc")
-animation = &"Attack_LEFT"
-autoplay = "Idle"
+animation = &"Idle_RIGHT"
+autoplay = "Idle_DOWN"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=21788181]
 position = Vector2(0, -1)
@@ -557,9 +594,9 @@ libraries/ = SubResource("AnimationLibrary_gcobm")
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = -8.0
-offset_top = -17.0
+offset_top = -23.0
 offset_right = 8.0
-offset_bottom = -16.0
+offset_bottom = -22.0
 grow_horizontal = 2
 pivot_offset = Vector2(11, 0)
 size_flags_horizontal = 4
@@ -598,5 +635,19 @@ collision_mask = 2
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Огонь/Area2D" unique_id=1643014913]
 polygon = PackedVector2Array(7.0000005, -4, 10, -2, 55, -2, 55, -12, 10, -12, 7.0000005, -10)
 disabled = true
+
+[node name="EffectBar" type="HBoxContainer" parent="." unique_id=688943409]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -25.0
+offset_right = 6.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("5_d3jh8")
 
 [connection signal="area_entered" from="Огонь/Area2D" to="." method="_on_area_2d_area_entered"]

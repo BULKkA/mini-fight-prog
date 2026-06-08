@@ -8,9 +8,9 @@ const KNOCKBACK_DECAY := 900.0			# насколько быстро гаснет 
 @onready var AnimPlayer: AnimationPlayer = $AnimationPlayer
 @onready var Inventory = $Inventory
 @export var heaviness: float = 3.0
-@export var SPEED := 100.0
-@export var DASH_SPEED := 200.0
-@export var DASH_COOLDOWN := 0.5
+@export var SPEED := 125.0
+@export var DASH_SPEED := 250.0
+@export var DASH_COOLDOWN := 0.2
 
 var knockback_velocity: Vector2 = Vector2.ZERO
 

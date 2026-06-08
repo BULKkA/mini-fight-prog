@@ -46,7 +46,7 @@ var CurrentEffects: Dictionary = {}
 @onready var AnimPlayer: AnimationPlayer = $AnimationPlayer
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var HealthBar: TextureProgressBar = $HealthBar
-@onready var EffectBar: VBoxContainer = $EffectBar
+@onready var EffectBar: HBoxContainer = $EffectBar
 
 func Init_Enemy(EnemyData):
 	GlobalFunc.copy_all_properties(EnemyData, self)
@@ -168,34 +168,27 @@ func Take_Effect(Effect):
 	if Effect == GlobalVar.Effect.NONE or current_combined_effect != null:
 		return
 	
-	var effect_data = GlobalVar.effect_data[Effect]
-	var find_effect = CurrentEffects.find(Effect)
+	var effect_data = GlobalVar.Effects_data[GlobalVar.Effect.keys()[Effect]]
+	var find_effect = CurrentEffects.find_key(Effect)
 
-	if find_effect != -1 :
+	if find_effect != null :
 		CurrentEffects[Effect].Duration = effect_data.Duration
-		return
-
-	EffectBar.add_effect(Effect)
-	CurrentEffects[Effect] = effect_data
-
-	_on_take_effect(effect_data)
-
-	if CurrentEffects.size() > 1:
+	elif CurrentEffects.size() > 1:
 		effect_connection(CurrentEffects)
-
-	await effect_process(Effect, effect_data)
-	
-	EffectBar.delete_effect(Effect)
-	CurrentEffects.erase(Effect)
+	else:
+		EffectBar.add_effect(Effect)
+		CurrentEffects[Effect] = effect_data
+		_on_take_effect(effect_data)
+		await effect_process(Effect, effect_data)
+		EffectBar.delete_effect(Effect)
+		CurrentEffects.erase(Effect)
 
 func effect_process(Effect, effect_data):
-	var elapsed := 0.0
 	speed *= (1.0 - effect_data.SlowPercent)
 	while CurrentEffects.has(Effect):
 		if effect_data.DamagePerTick > 0:
 			take_hit(effect_data.DamagePerTick, {}, GlobalVar.Effect.NONE)
 		await get_tree().create_timer(effect_data.TickTime).timeout
-		
 		CurrentEffects[Effect].Duration -= effect_data.TickTime
 
 		if CurrentEffects[Effect].Duration <= 0:
@@ -203,9 +196,9 @@ func effect_process(Effect, effect_data):
 
 	speed /= (1.0 - effect_data.SlowPercent)
 
-func effect_connection(CurrentEffects)
+func effect_connection(CurrentEffects):
 	current_combined_effect = GlobalFunc.combine_effects(CurrentEffects[0], CurrentEffects[1])
-	effect_data = GlobalVar.Effect_connect_data[current_combined_effect]
+	var effect_data = GlobalVar.Effect_connect_data[current_combined_effect]
 	CurrentEffects[current_combined_effect] = effect_data
 	if effect_data:
 		await effect_process(current_combined_effect, effect_data)

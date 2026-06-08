@@ -64,7 +64,9 @@ func StartWaves(waves_count, Waves):
 		await wave_ended()
 		ClearWaveObject()
 		await get_tree().create_timer(wave.wave_delay).timeout
-
+	GlobalVar.LevelFinish.emit()
+	
+	
 func wave_ended():
 	while WaveActivicy or get_node("Enemy").get_child_count() > 0:
 		await get_tree().process_frame

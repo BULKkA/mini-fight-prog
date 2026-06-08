@@ -421,7 +421,7 @@ tint_under = Color(0, 0, 0, 0.9019608)
 tint_progress = Color(1, 0, 0, 1)
 script = ExtResource("3_oicaf")
 
-[node name="EffectBox" type="HBoxContainer" parent="." unique_id=796329532]
+[node name="EffectBar" type="HBoxContainer" parent="." unique_id=796329532]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0

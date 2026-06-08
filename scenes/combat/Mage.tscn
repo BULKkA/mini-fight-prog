@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bmdsk5h805wnx" path="res://scripts/combat/mage.gd" id="1_t6i7h"]
 [ext_resource type="Texture2D" uid="uid://c8bisjv2i24mj" path="res://art/sprites/effects/Free Smoke Fx  Pixel 07.png" id="2_qilvl"]
 [ext_resource type="Script" uid="uid://cywrwj2s0jr1w" path="res://scripts/ui/health_bar.gd" id="3_t6i7h"]
+[ext_resource type="Script" uid="uid://d3dnrpjrrgdih" path="res://scripts/ui/effect_box.gd" id="5_t6i7h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gkxxw"]
 atlas = ExtResource("2_qilvl")
@@ -612,3 +613,17 @@ texture_progress = SubResource("ExternalTexture_qilvl")
 tint_under = Color(0, 0, 0, 0.9019608)
 tint_progress = Color(1, 0, 0, 1)
 script = ExtResource("3_t6i7h")
+
+[node name="EffectBar" type="HBoxContainer" parent="." unique_id=321540106]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -34.0
+offset_right = 6.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("5_t6i7h")
