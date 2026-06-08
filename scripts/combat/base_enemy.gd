@@ -197,7 +197,7 @@ func effect_process(Effect, effect_data):
 	speed /= (1.0 - effect_data.SlowPercent)
 
 func effect_connection(CurrentEffects):
-	current_combined_effect = GlobalFunc.combine_effects(CurrentEffects[0], CurrentEffects[1])
+	current_combined_effect = GlobalFunc.combine_effects(CurrentEffects.keys()[0], CurrentEffects.keys()[1])
 	var effect_data = GlobalVar.Effect_connect_data[current_combined_effect]
 	CurrentEffects[current_combined_effect] = effect_data
 	if effect_data:
