@@ -26,9 +26,5 @@ data = [{
 "level_data": "res://data/levels/level_04_data.tres",
 "link": "res://data/levels/level_04.tscn",
 "name": "Уровень 4"
-}, {
-"id": 5,
-"level_data": "res://data/levels/level_05_data.tres",
-"link": "res://data/levels/level_05.tscn",
-"name": "Уровень 5"
 }]
+

@@ -72,5 +72,40 @@ data = {
 "heaviness": 40,
 "max_health": 50,
 "speed": 50
+},
+"Golem_Blue": {
+"Link": "res://scenes/combat/golem_blue.tscn",
+"Strength": 200,
+"attackSpeed": 3,
+"attack_range": 30,
+"attacks": [{
+"Damage": 30,
+"Effect": "FREEZE",
+"Name": "Attack",
+"Strength": 200,
+"Type": "Melee"
+}],
+"can_be_stunned": false,
+"heaviness": 100,
+"max_health": 100,
+"speed": 30
+},
+"Golem_Red": {
+"Link": "res://scenes/combat/golem_red.tscn",
+"Strength": 200,
+"attackSpeed": 3,
+"attack_range": 30,
+"attacks": [{
+"Damage": 30,
+"Effect": "FIRE",
+"Name": "Attack",
+"Strength": 200,
+"Type": "Melee"
+}],
+"can_be_stunned": false,
+"heaviness": 100,
+"max_health": 100,
+"speed": 30
 }
+
 }

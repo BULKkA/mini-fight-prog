@@ -62,6 +62,8 @@ func _ready() -> void:
 	_On_Ready()
 
 func _physics_process(delta: float) -> void:
+	
+	_on_physics_process(delta)
 	if not is_alive or is_attacking or stun:
 		return
 
@@ -96,6 +98,9 @@ func _update_animation() -> void:
 	_set_animation(&"Walk_" + Direction.keys()[idle_dir])
 
 func _set_idle_dir_from_direction(direction: Vector2) -> void:
+	if direction == Vector2.ZERO:
+		return
+	
 	if abs(direction.x) > abs(direction.y):
 		idle_dir = Direction.LEFT if direction.x < 0 else Direction.RIGHT
 	else:
@@ -169,17 +174,18 @@ func Take_Effect(Effect):
 		return
 	
 	var effect_data = GlobalVar.Effects_data[GlobalVar.Effect.keys()[Effect]]
-	var find_effect = CurrentEffects.find_key(Effect)
 
-	if find_effect != null :
+	if CurrentEffects.has(Effect):
 		CurrentEffects[Effect].Duration = effect_data.Duration
 	elif CurrentEffects.size() > 1:
 		effect_connection(CurrentEffects)
 	else:
 		EffectBar.add_effect(Effect)
-		CurrentEffects[Effect] = effect_data
+		CurrentEffects.get_or_add(Effect, effect_data)
 		_on_take_effect(effect_data)
 		await effect_process(Effect, effect_data)
+		if not is_instance_valid(self) or not is_alive:
+			return
 		EffectBar.delete_effect(Effect)
 		CurrentEffects.erase(Effect)
 
@@ -189,6 +195,8 @@ func effect_process(Effect, effect_data):
 		if effect_data.DamagePerTick > 0:
 			take_hit(effect_data.DamagePerTick, {}, GlobalVar.Effect.NONE)
 		await get_tree().create_timer(effect_data.TickTime).timeout
+		if not is_instance_valid(self):
+			return
 		CurrentEffects[Effect].Duration -= effect_data.TickTime
 
 		if CurrentEffects[Effect].Duration <= 0:
@@ -209,6 +217,7 @@ func effect_connection(CurrentEffects):
 func die() -> void:
 	is_alive = false 
 	_on_die()
+	EffectBar.delete_all_effects()
 	_set_animation("Die")
 	await animated_sprite.animation_finished
 	clothCollisions()
@@ -231,13 +240,12 @@ func clothCollisions():
 		if child is Area2D:
 			child.monitorable = false
 
-
-
-
-
 func _On_Ready() -> void:
 	pass
 
+func _on_physics_process(delta) -> void:
+	pass
+	
 func _on_die():
 	pass
 
