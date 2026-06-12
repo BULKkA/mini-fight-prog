@@ -5,10 +5,10 @@ data = {
 "Chest": {
 "Link": "res://scenes/combat/Chest_monstr.tscn",
 "Strength": 0,
-"attackSpeed": 2,
-"attack_range": 30,
+"attackSpeed": 2.5,
+"attack_range": 35,
 "attacks": [{
-"Damage": 10,
+"Damage": 18,
 "Effect": "FIRE",
 "Name": "Attack",
 "Strength": 40,
@@ -16,7 +16,7 @@ data = {
 }],
 "can_be_stunned": false,
 "heaviness": 10,
-"max_health": 50,
+"max_health": 70,
 "speed": 40
 },
 "Mage": {
@@ -26,14 +26,14 @@ data = {
 "attack_range": 0,
 "attacks": [{
 "Body": "res://scenes/combat/mage_attacks/btoom.tscn",
-"Damage": 10,
+"Damage": 14,
 "Effect": "EXPLOSION",
 "Name": "Btoom",
 "Strength": 100,
 "Type": "Magic"
 }, {
 "Body": "res://scenes/combat/mage_attacks/IseBall.tscn",
-"Damage": 5,
+"Damage": 8,
 "Effect": "FREEZE",
 "Name": "IseBall",
 "Strength": 0,
@@ -41,8 +41,8 @@ data = {
 }],
 "can_be_stunned": true,
 "heaviness": 20,
-"max_health": 30,
-"speed": 40,
+"max_health": 40,
+"speed": 45,
 "spells": [{
 "Damage": 0,
 "Effect": "NONE",
@@ -52,60 +52,76 @@ data = {
 },
 "Orc": {
 "Link": "res://scenes/combat/Orc.tscn",
-"Strength": 10,
-"attackSpeed": 1.5,
-"attack_range": 15,
+"Strength": 12,
+"attackSpeed": 1.6,
+"attack_range": 18,
 "attacks": [{
-"Damage": 10,
+"Damage": 14,
 "Effect": "NONE",
 "Name": "Attack_Light",
-"Strength": 40,
+"Strength": 45,
 "Type": "Melee"
 }, {
-"Damage": 20,
+"Damage": 24,
 "Effect": "NONE",
 "Name": "Attack_Hight",
-"Strength": 50,
+"Strength": 55,
 "Type": "Melee"
 }],
 "can_be_stunned": true,
 "heaviness": 40,
-"max_health": 50,
-"speed": 50
+"max_health": 75,
+"speed": 55
 },
 "Golem_Blue": {
 "Link": "res://scenes/combat/golem_blue.tscn",
-"Strength": 200,
-"attackSpeed": 3,
-"attack_range": 30,
+"Strength": 250,
+"attackSpeed": 3.2,
+"attack_range": 35,
 "attacks": [{
-"Damage": 30,
+"Damage": 38,
 "Effect": "FREEZE",
 "Name": "Attack",
-"Strength": 200,
+"Strength": 250,
 "Type": "Melee"
 }],
 "can_be_stunned": false,
 "heaviness": 100,
-"max_health": 100,
+"max_health": 150,
 "speed": 30
 },
 "Golem_Red": {
 "Link": "res://scenes/combat/golem_red.tscn",
-"Strength": 200,
-"attackSpeed": 3,
-"attack_range": 30,
+"Strength": 250,
+"attackSpeed": 3.2,
+"attack_range": 35,
 "attacks": [{
-"Damage": 30,
+"Damage": 38,
 "Effect": "FIRE",
 "Name": "Attack",
-"Strength": 200,
+"Strength": 250,
 "Type": "Melee"
 }],
 "can_be_stunned": false,
 "heaviness": 100,
-"max_health": 100,
+"max_health": 150,
 "speed": 30
+},
+"Bat": {
+"Link": "res://scenes/combat/bat.tscn",
+"Strength": 50,
+"attackSpeed": 1.2,
+"attack_range": 20,
+"attacks": [{
+"Damage": 12,
+"Effect": "NONE",
+"Name": "Dash",
+"Strength": 80,
+"Type": "Melee"
+}],
+"can_be_stunned": true,
+"heaviness": 8,
+"max_health": 20,
+"speed": 80
 }
-
 }

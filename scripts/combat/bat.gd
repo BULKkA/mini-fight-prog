@@ -1,45 +1,62 @@
 extends BaseEnemy
 
-@export var dash_speed = 0
+var dash_velocity: Vector2 = Vector2.ZERO
 
 func _on_physics_process(delta):
-	if is_attacking:
+	if is_attacking and dash_velocity != Vector2.ZERO:
+		velocity = dash_velocity
 		move_and_slide()
+		# тормозим после дэша
+		dash_velocity = dash_velocity.move_toward(Vector2.ZERO, 4000.0 * delta) #ИИ Слоп
+
+func _on_state_enter(new_state: State):
+	if new_state == State.CHASE:
+		movement_velocity = Vector2.ZERO
+		animated_sprite.play("Idle")
 
 func _perform_attack() -> void:
-	
-	if global_position.distance_to(target.global_position) > attack_range:
+	if not target or not is_instance_valid(target):
 		set_state(State.CHASE)
 		return
-	currentAttack = attacks[randi_range(0,  attacks.size() - 1)]
 	
+	currentAttack = attacks[0]
+	
+	# Дэш-рывок к цели
+	var dir = (target.global_position - global_position).normalized()
+	dash_velocity = dir * (speed * 3.0)  # х3 от обычной скорости
 	_play_attack_animation(currentAttack.Name)
-	await get_tree().create_timer(0.5).timeout
+	
+	await get_tree().create_timer(0.3).timeout
+	
+	dash_velocity = Vector2.ZERO
+	
+	await get_tree().create_timer(0.2).timeout
+
+	is_attacking = false
+	set_state(State.CHASE)
 
 func _set_idle_dir_from_direction(direction: Vector2) -> void:
 	if direction.x != 0:
-		idle_dir = Direction.LEFT if direction.x < 0.0 else Direction.RIGHT
+		animated_sprite.flip_h = direction.x < 0
 
 func _update_animation() -> void:
-	if movement_velocity.length_squared() <= MIN_MOVE_SPEED_SQ:
-		_set_animation(&"Idle")
+	if not is_alive or is_attacking:
 		return
-	animated_sprite.flip_h = idle_dir != Direction.LEFT
-	_set_animation(&"Walk")
+	if movement_velocity.length_squared() <= MIN_MOVE_SPEED_SQ:
+		if animated_sprite.animation != &"Idle":
+			animated_sprite.play("Idle")
+		return
+	if animated_sprite.animation != &"Walk":
+		animated_sprite.play("Walk")
+	animated_sprite.flip_h = movement_velocity.x < 0
 
 func _play_attack_animation(AttackType) -> void:
-	if not is_alive:
+	if not is_alive or is_attacking:
 		return
-	AnimPlayer.play(AttackType)
-	if movement_velocity.x < 0:
-		animated_sprite.flip_h = true
-		_set_animation(AttackType)
-	else:
-		animated_sprite.flip_h = false
-		_set_animation(AttackType)
+	AnimPlayer.play(&"Attack")
 
-func _on_attack_light_area_entered(area: Area2D) -> void:
-	attackBody(area.get_parent())
-
-func _on_attack_hight_area_entered(area: Area2D) -> void:
-	attackBody(area.get_parent())
+func _on_attack_area_entered(area: Area2D) -> void:
+	if area and area.has_method(&"get_parent"):
+		var body = area.get_parent()
+		if body and body != self and body.has_method(&"take_hit"):
+			attackBody(body)

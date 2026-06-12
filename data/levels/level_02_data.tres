@@ -9,86 +9,64 @@ data = {
 			"wave_number": 1,
 			"wave_delay": 6,
 			"enemies": [
-				{
-					"type": "Orc",
-					"count": 5,
-					"spawn_delay": 1.2
-				}
+				{ "type": "Orc", "count": 3, "spawn_delay": 1.2 },
+				{ "type": "Bat", "count": 4, "spawn_delay": 0.6 },
+				{ "type": "Orc", "count": 3, "spawn_delay": 1.0 }
 			],
 			"weapons": [
-				{
-					"type": "Default_Sword",
-					"spawn_delay": 0,
-					"Uses": 12
-				},
-				{
-					"type": "Poison_Sword",
-					"spawn_delay": 2.0,
-					"Uses": 8
-				}
+				{ "type": "Default_Sword", "spawn_delay": 0, "Uses": 10 },
+				{ "type": "Fire_Sword", "spawn_delay": 2.0, "Uses": 6 },
+				{ "type": "Poison_Sword", "spawn_delay": 4.0, "Uses": 5 }
 			]
 		},
 		{
 			"wave_number": 2,
-			"wave_delay": 12,
+			"wave_delay": 14,
 			"enemies": [
-				{
-					"type": "Orc",
-					"count": 6,
-					"spawn_delay": 1.0
-				},
-				{
-					"type": "Mage",
-					"count": 1,
-					"spawn_delay": 3.5
-				}
+				{ "type": "Orc", "count": 5, "spawn_delay": 1.0 },
+				{ "type": "Mage", "count": 1, "spawn_delay": 3.0 },
+				{ "type": "Bat", "count": 6, "spawn_delay": 0.5 },
+				{ "type": "Orc", "count": 4, "spawn_delay": 0.8 }
 			],
 			"weapons": [
-				{
-					"type": "Fire_Sword",
-					"spawn_delay": 0.5,
-					"Uses": 7
-				},
-				{
-					"type": "Default_Sword",
-					"spawn_delay": 2.5,
-					"Uses": 10
-				}
+				{ "type": "Fire_Sword", "spawn_delay": 0, "Uses": 5 },
+				{ "type": "Ise_Sword", "spawn_delay": 2.5, "Uses": 5 },
+				{ "type": "Default_Sword", "spawn_delay": 4.0, "Uses": 8 },
+				{ "type": "Poison_Sword", "spawn_delay": 6.0, "Uses": 5 }
 			]
 		},
 		{
 			"wave_number": 3,
-			"wave_delay": 18,
+			"wave_delay": 16,
 			"enemies": [
-				{
-					"type": "Chest",
-					"count": 1,
-					"spawn_delay": 1.0
-				},
-				{
-					"type": "Orc",
-					"count": 8,
-					"spawn_delay": 1.2
-				},
-				{
-					"type": "Mage",
-					"count": 2,
-					"spawn_delay": 4.0
-				}
+				{ "type": "Orc", "count": 6, "spawn_delay": 0.8 },
+				{ "type": "Bat", "count": 8, "spawn_delay": 0.4 },
+				{ "type": "Mage", "count": 2, "spawn_delay": 3.0 },
+				{ "type": "Orc", "count": 5, "spawn_delay": 0.8 }
 			],
 			"weapons": [
-				{
-					"type": "Ise_Sword",
-					"spawn_delay": 0,
-					"Uses": 6
-				},
-				{
-					"type": "Fly_Sword",
-					"spawn_delay": 2.5,
-					"Uses": 5
-				}
+				{ "type": "Ise_Sword", "spawn_delay": 0, "Uses": 6 },
+				{ "type": "Poison_Sword", "spawn_delay": 2.0, "Uses": 6 },
+				{ "type": "Fire_Sword", "spawn_delay": 4.0, "Uses": 5 }
+			]
+		},
+		{
+			"wave_number": 4,
+			"wave_delay": 18,
+			"enemies": [
+				{ "type": "Chest", "count": 1, "spawn_delay": 1.0 },
+				{ "type": "Orc", "count": 6, "spawn_delay": 0.8 },
+				{ "type": "Bat", "count": 8, "spawn_delay": 0.4 },
+				{ "type": "Mage", "count": 2, "spawn_delay": 3.5 },
+				{ "type": "Orc", "count": 5, "spawn_delay": 0.7 }
+			],
+			"weapons": [
+				{ "type": "Fly_Sword", "spawn_delay": 0, "Uses": 5 },
+				{ "type": "Fire_Sword", "spawn_delay": 2.0, "Uses": 5 },
+				{ "type": "Ise_Sword", "spawn_delay": 4.0, "Uses": 5 },
+				{ "type": "Default_Sword", "spawn_delay": 6.0, "Uses": 8 }
 			]
 		}
 	],
-	"waves_count": 3
+	"waves_count": 4
 }
