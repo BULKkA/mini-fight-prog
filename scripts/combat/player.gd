@@ -7,6 +7,7 @@ const KNOCKBACK_DECAY := 900.0			# насколько быстро гаснет 
 @onready var PlayerAnim: AnimatedSprite2D = $PlayerAnim
 @onready var AnimPlayer: AnimationPlayer = $AnimationPlayer
 @onready var Inventory = $Inventory
+@onready var Hitbox: Area2D = $HitBox
 @export var heaviness: float = 3.0
 @export var SPEED := 125.0
 @export var DASH_SPEED := 250.0
@@ -82,8 +83,10 @@ func _physics_process(delta: float) -> void:
 
 func dash() -> void:
 	is_dashing = true
+	Hitbox.monitorable = false
 	_set_animation(PlayerAnim, "Dash_" + Direction.keys()[idle_dir])
 	await PlayerAnim.animation_finished
+	Hitbox.monitorable = true
 	is_dashing = false
 	
 	dash_is_cooldown = true

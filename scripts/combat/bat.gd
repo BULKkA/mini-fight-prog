@@ -24,9 +24,9 @@ func _perform_attack() -> void:
 	# Дэш-рывок к цели
 	var dir = (target.global_position - global_position).normalized()
 	dash_velocity = dir * (speed * 3.0)  # х3 от обычной скорости
-	_play_attack_animation(currentAttack.Name)
-	
-	await get_tree().create_timer(0.3).timeout
+	AnimPlayer.play(currentAttack.Name)
+	_set_animation(currentAttack.Name)
+	await animated_sprite.animation_finished
 	
 	dash_velocity = Vector2.ZERO
 	
@@ -42,21 +42,14 @@ func _set_idle_dir_from_direction(direction: Vector2) -> void:
 func _update_animation() -> void:
 	if not is_alive or is_attacking:
 		return
+	animated_sprite.flip_h = movement_velocity.x > 0
 	if movement_velocity.length_squared() <= MIN_MOVE_SPEED_SQ:
 		if animated_sprite.animation != &"Idle":
 			animated_sprite.play("Idle")
 		return
 	if animated_sprite.animation != &"Walk":
 		animated_sprite.play("Walk")
-	animated_sprite.flip_h = movement_velocity.x < 0
-
-func _play_attack_animation(AttackType) -> void:
-	if not is_alive or is_attacking:
-		return
-	AnimPlayer.play(&"Attack")
 
 func _on_attack_area_entered(area: Area2D) -> void:
-	if area and area.has_method(&"get_parent"):
-		var body = area.get_parent()
-		if body and body != self and body.has_method(&"take_hit"):
-			attackBody(body)
+	var body = area.get_parent()
+	attackBody(body)

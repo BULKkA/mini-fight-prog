@@ -354,15 +354,14 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0qson"]
 radius = 2.0
-height = 28.0
+height = 14.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qfqf7"]
-radius = 28.0
-height = 70.0
+radius = 5.0
+height = 20.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eiwj0"]
-radius = 17.0
-height = 36.0
+radius = 7.0
 
 [sub_resource type="Animation" id="Animation_75xjr"]
 resource_name = "Attack"
@@ -406,10 +405,11 @@ _data = {
 size = Vector2(16, 1)
 
 [node name="bat" type="CharacterBody2D" unique_id=1425695924]
+collision_layer = 4
 script = ExtResource("1_3wrop")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=95330986]
-position = Vector2(0, -32)
+position = Vector2(-1, -19)
 sprite_frames = SubResource("SpriteFrames_sne7i")
 animation = &"Attack"
 autoplay = "Idle"
@@ -440,7 +440,7 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1737180242]
-position = Vector2(0, -15)
+position = Vector2(0, -14)
 shape = SubResource("CapsuleShape2D_eiwj0")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1310953256]
@@ -450,9 +450,9 @@ libraries/ = SubResource("AnimationLibrary_ey5r7")
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = -8.0
-offset_top = -18.0
+offset_top = -31.0
 offset_right = 8.0
-offset_bottom = -16.0
+offset_bottom = -29.0
 grow_horizontal = 2
 pivot_offset = Vector2(11, 0)
 size_flags_horizontal = 4
@@ -468,9 +468,11 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -6.0
-offset_top = -21.0
+offset_top = -34.0
 offset_right = 6.0
-offset_bottom = -19.0
+offset_bottom = -32.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("6_qo5xq")
+
+[connection signal="area_entered" from="Attack" to="." method="_on_attack_area_entered"]

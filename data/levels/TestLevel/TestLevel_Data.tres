@@ -10,7 +10,7 @@ data = {
 			"enemies": [
 				{
 					"spawn_delay": 0,
-					"type": "Golem_Red",
+					"type": "Golem_Blue",
 					"count": 1
 				}
 			],

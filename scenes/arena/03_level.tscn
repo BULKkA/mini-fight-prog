@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://dg426qaps3bus"]
 
+[ext_resource type="Script" uid="uid://c5okn0qn3p3m" path="res://scripts/levels/Level.gd" id="1_qhuyi"]
 [ext_resource type="Script" uid="uid://drm1umr5m2ia" path="res://scripts/global/SpawnManager.gd" id="1_qwvy3"]
 [ext_resource type="Texture2D" uid="uid://dm7g1gqa4fynb" path="res://art/tilemaps/dungeon.png" id="2_qhuyi"]
 [ext_resource type="TileSet" uid="uid://d05xcpwdj6tfi" path="res://art/tilemaps/Dungein)Objects_01.tres" id="3_mlyc0"]
@@ -581,6 +582,7 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_j1vlr")
 
 [node name="03_level" type="Node2D" unique_id=1883793771]
+script = ExtResource("1_qhuyi")
 
 [node name="SpawnManager" type="Node2D" parent="." unique_id=948341226]
 y_sort_enabled = true

@@ -21,9 +21,12 @@ func _ready() -> void:
 	StartWaves(GlobalVar.Current_scene_data.waves_count, GlobalVar.Current_scene_data.waves) 
 
 func spawn_weapons(weapons):
-	for weapon in weapons:
-		await get_tree().create_timer(weapon.spawn_delay).timeout
-		SpawnWeapon(weapon)
+	while WaveActivicy: 
+		for weapon in weapons:
+			await get_tree().create_timer(weapon.spawn_delay).timeout
+			if WaveActivicy:
+				return
+			SpawnWeapon(weapon)
 
 func SpawnWeapon(Weapon_Spawn_Data) -> void:
 	var WeaponSpawner = WeaponSpawners[randi() % WeaponSpawners.size()]	
@@ -64,6 +67,7 @@ func StartWaves(waves_count, Waves):
 		await wave_ended()
 		ClearWaveObject()
 		await get_tree().create_timer(wave.wave_delay).timeout
+		GlobalVar.NextWave.emit()
 	GlobalVar.LevelFinish.emit()
 	
 	

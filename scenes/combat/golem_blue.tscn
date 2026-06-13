@@ -413,6 +413,7 @@ _data = {
 size = Vector2(16, 1)
 
 [node name="Golem_Blue" type="CharacterBody2D" unique_id=1014125471]
+collision_layer = 4
 script = ExtResource("1_75xjr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1038068273]
@@ -456,10 +457,10 @@ libraries/ = SubResource("AnimationLibrary_nw0bn")
 [node name="HealthBar" type="TextureProgressBar" parent="." unique_id=1460059813]
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = -8.0
-offset_top = -18.0
-offset_right = 8.0
-offset_bottom = -16.0
+offset_left = -7.0
+offset_top = -41.0
+offset_right = 9.0
+offset_bottom = -39.0
 grow_horizontal = 2
 pivot_offset = Vector2(11, 0)
 size_flags_horizontal = 4
@@ -474,10 +475,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -6.0
-offset_top = -21.0
-offset_right = 6.0
-offset_bottom = -19.0
+offset_left = -5.0
+offset_top = -44.0
+offset_right = 7.0
+offset_bottom = -42.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("8_klvd8")

@@ -66,7 +66,7 @@ func _physics_process(delta: float) -> void:
 	_on_physics_process(delta)
 	if not is_alive or is_attacking or stun:
 		return
-
+	
 	match state:
 		State.CHASE:
 			_chase(delta)
@@ -76,8 +76,8 @@ func _physics_process(delta: float) -> void:
 	update_knockback(delta)
 	velocity = movement_velocity + knockback_velocity
 	move_and_slide()
-	_set_idle_dir_from_direction(velocity)
-	_update_animation()
+	await _set_idle_dir_from_direction(velocity)
+	await _update_animation()
 
 func update_knockback(delta: float) -> void:
 	if knockback_velocity == Vector2.ZERO:
@@ -94,7 +94,6 @@ func _update_animation() -> void:
 	if movement_velocity.length_squared() <= MIN_MOVE_SPEED_SQ:
 		_set_animation(&"Idle_" + Direction.keys()[idle_dir])
 		return
-
 	_set_animation(&"Walk_" + Direction.keys()[idle_dir])
 
 func _set_idle_dir_from_direction(direction: Vector2) -> void:
@@ -133,8 +132,7 @@ func _attack(delta: float) -> void:
 	movement_velocity = Vector2.ZERO
 	if not is_attacking:
 		is_attacking = true
-		await _perform_attack()
-		is_attacking = false
+		_perform_attack()
 
 func set_state(new_state: State) -> void:
 	if new_state == state:
@@ -263,7 +261,6 @@ func _on_state_exit(old_state: State) -> void:
 
 func _perform_attack() -> void:
 	pass
-
 
 func _set_animation(animation_name: StringName) -> void:
 	if animated_sprite.animation == animation_name:

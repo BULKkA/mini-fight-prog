@@ -115,7 +115,7 @@ data = {
 "attacks": [{
 "Damage": 12,
 "Effect": "NONE",
-"Name": "Dash",
+"Name": "Attack",
 "Strength": 80,
 "Type": "Melee"
 }],
