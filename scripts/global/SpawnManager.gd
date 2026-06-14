@@ -24,8 +24,8 @@ func spawn_weapons(weapons):
 	while WaveActivicy: 
 		for weapon in weapons:
 			await get_tree().create_timer(weapon.spawn_delay).timeout
-			if WaveActivicy:
-				return
+			if not WaveActivicy:
+				return 
 			SpawnWeapon(weapon)
 
 func SpawnWeapon(Weapon_Spawn_Data) -> void:
@@ -67,7 +67,7 @@ func StartWaves(waves_count, Waves):
 		await wave_ended()
 		ClearWaveObject()
 		await get_tree().create_timer(wave.wave_delay).timeout
-		GlobalVar.NextWave.emit()
+		GlobalVar.NextWave.emit(wave.wave_number)
 	GlobalVar.LevelFinish.emit()
 	
 	

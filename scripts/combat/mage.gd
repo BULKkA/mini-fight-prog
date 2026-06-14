@@ -22,20 +22,32 @@ func _chase(delta: float) -> void:
 		)
 		navigation_agent.target_position = self.global_position + offset
 
+func _update_animation() -> void:
+	if movement_velocity.length_squared() <= MIN_MOVE_SPEED_SQ:
+		if is_attacking or not is_alive or is_Casting:
+			return
+		_set_animation(&"Idle_" + Direction.keys()[idle_dir])
+		return
+	if is_attacking or not is_alive or is_Casting:
+			return
+	_set_animation(&"Walk_" + Direction.keys()[idle_dir])
 
 func _perform_attack() -> void:
-	if Casts.visible:
+	if not is_alive or is_Casting:
 		return
-	await get_tree().create_timer(0.4).timeout
 	currentAttack = attacks[randi_range(0,  attacks.size() - 1)]
 	Casts.visible = true
 	Casts.play(currentAttack.Name)
 	await Casts.animation_finished
 	Casts.visible = false
 	SpawnMagic(load(currentAttack.Body).instantiate())
+	is_attacking = false
 	set_state(State.CHASE)
 
 func Use_Spell(Spell):
+	if is_attacking or not is_alive or is_Casting:
+		return
+	is_Casting = true
 	Casts.visible = true
 	Casts.play(Spell.Name)
 	if Spell.Name == "Teleport":
@@ -43,6 +55,7 @@ func Use_Spell(Spell):
 		await  AnimPlayer.animation_finished
 		Teleport()
 	await Casts.animation_finished 
+	is_Casting = false
 	Casts.visible = false
 	set_state(State.CHASE)
 

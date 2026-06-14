@@ -54,9 +54,9 @@ func player_attack(weapon, data):
 	weapons[weapon].SetData(data)
 	
 
-func next_wave(wave):
+func next_wave(wave_number):
 	var wave_label = WavePanel.get_node("WaveLabel")
-	wave_label.text = "Wave: %d" % wave.wave_number
+	wave_label.text = "Wave: %d" % wave_number
 	UIAnimator.play("WaveStart")
 	
 func set_health(health):

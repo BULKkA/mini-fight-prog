@@ -6,7 +6,7 @@ const DEFAULT_LEVEL_ID := 1
 @onready var levels = load("res://data/levels/Levels.tres")
 
 var Current_level_id = null
-var debug_mode = true
+var debug_mode = false
 
 func _ready():
 	Current_level_id = load_level_id()

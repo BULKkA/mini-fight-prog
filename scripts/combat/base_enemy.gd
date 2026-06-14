@@ -76,8 +76,8 @@ func _physics_process(delta: float) -> void:
 	update_knockback(delta)
 	velocity = movement_velocity + knockback_velocity
 	move_and_slide()
-	await _set_idle_dir_from_direction(velocity)
-	await _update_animation()
+	_set_idle_dir_from_direction(velocity)
+	_update_animation()
 
 func update_knockback(delta: float) -> void:
 	if knockback_velocity == Vector2.ZERO:
@@ -91,6 +91,8 @@ func update_knockback(delta: float) -> void:
 		knockback_velocity = Vector2.ZERO
 
 func _update_animation() -> void:
+	if is_attacking or not is_alive:
+		return
 	if movement_velocity.length_squared() <= MIN_MOVE_SPEED_SQ:
 		_set_animation(&"Idle_" + Direction.keys()[idle_dir])
 		return

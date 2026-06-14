@@ -47,6 +47,7 @@ atlas = SubResource("CompressedTexture2D_x41o1")
 region = Rect2(5.1887054, 1.1888752, 68.51118, 24.728888)
 
 [node name="InGameUi" type="Control" unique_id=1628850726]
+z_index = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
